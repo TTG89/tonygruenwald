@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -7,17 +5,24 @@ export default function Home() {
       <nav className="fixed top-0 w-full bg-white/10 backdrop-blur-md border-b border-white/20 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold text-white">
-              Tony Gruenwald
-            </div>
+            <div className="text-2xl font-bold text-white">Tony Gruenwald</div>
             <div className="hidden md:flex space-x-8">
-              <a href="#about" className="text-white/80 hover:text-white transition-colors">
+              <a
+                href="#about"
+                className="text-white/80 hover:text-white transition-colors"
+              >
                 About
               </a>
-              <a href="#projects" className="text-white/80 hover:text-white transition-colors">
+              <a
+                href="#projects"
+                className="text-white/80 hover:text-white transition-colors"
+              >
                 Projects
               </a>
-              <a href="#contact" className="text-white/80 hover:text-white transition-colors">
+              <a
+                href="#contact"
+                className="text-white/80 hover:text-white transition-colors"
+              >
                 Contact
               </a>
             </div>
@@ -53,10 +58,11 @@ export default function Home() {
               About Me
             </h2>
             <p className="text-lg text-white/80 leading-relaxed text-center">
-              Welcome to my digital space! I&apos;m passionate about creating innovative solutions 
-              and bringing ideas to life through code. Whether it&apos;s building web applications, 
-              solving complex problems, or exploring new technologies, I&apos;m always excited to 
-              take on new challenges.
+              Welcome to my digital space! I&apos;m passionate about creating
+              innovative solutions and bringing ideas to life through code.
+              Whether it&apos;s building web applications, solving complex
+              problems, or exploring new technologies, I&apos;m always excited
+              to take on new challenges.
             </p>
           </div>
         </div>
@@ -70,13 +76,17 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((project) => (
-              <div key={project} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-colors">
+              <div
+                key={project}
+                className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-colors"
+              >
                 <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg h-48 mb-4"></div>
                 <h3 className="text-xl font-semibold text-white mb-2">
                   Project {project}
                 </h3>
                 <p className="text-white/70 mb-4">
-                  A brief description of this amazing project and what it accomplishes.
+                  A brief description of this amazing project and what it
+                  accomplishes.
                 </p>
                 <button className="text-white font-semibold hover:text-white/80 transition-colors">
                   Learn More →
@@ -94,7 +104,8 @@ export default function Home() {
             Let&apos;s Connect
           </h2>
           <p className="text-lg text-white/80 mb-8">
-            Ready to start a project or just want to chat? I&apos;d love to hear from you.
+            Ready to start a project or just want to chat? I&apos;d love to hear
+            from you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-white/90 transition-colors">
@@ -110,7 +121,10 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-white/20">
         <div className="max-w-7xl mx-auto text-center text-white/60">
-          <p>&copy; 2024 Tony Gruenwald. Built with Next.js and deployed on Vercel.</p>
+          <p>
+            &copy; 2024 Tony Gruenwald. Built with Next.js and deployed on
+            Vercel.
+          </p>
         </div>
       </footer>
     </main>
