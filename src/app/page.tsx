@@ -1,96 +1,399 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+
 export default function Home() {
+  const [messages, setMessages] = useState([
+    {
+      text: "👋 Hi there! I'm Tony's virtual assistant. Ask me anything about Tony's work, skills, or experience!",
+      isUser: false,
+    },
+    {
+      text: "Try asking about Tony's tech stack, recent projects, or availability for new opportunities.",
+      isUser: false,
+    },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const getBotResponse = (message: string) => {
+    const lowerMsg = message.toLowerCase();
+
+    if (
+      lowerMsg.includes("hello") ||
+      lowerMsg.includes("hi ") ||
+      lowerMsg === "hi"
+    ) {
+      return "Hello! How can I help you today? Feel free to ask about Tony's experience, skills, or projects.";
+    } else if (
+      lowerMsg.includes("skill") ||
+      lowerMsg.includes("what can you do")
+    ) {
+      return "Tony specializes in full-stack development with React, Node.js, and TypeScript. He&apos;s also experienced in mobile development and has strong UI/UX design skills.";
+    } else if (
+      lowerMsg.includes("experience") ||
+      lowerMsg.includes("background")
+    ) {
+      return "Tony has extensive experience in web and mobile development. He&apos;s worked with startups and enterprise clients across various industries including fintech, healthcare, and e-commerce.";
+    } else if (lowerMsg.includes("project") || lowerMsg.includes("work")) {
+      return "Tony has worked on several notable projects including web applications, mobile apps, and design systems. Would you like to know more about any specific type of project?";
+    } else if (lowerMsg.includes("contact") || lowerMsg.includes("reach")) {
+      return "You can contact Tony through the contact form on this page, or connect with him on LinkedIn and GitHub.";
+    } else if (lowerMsg.includes("availab") || lowerMsg.includes("hire")) {
+      return "Tony is currently available for new opportunities and projects. He&apos;s always excited to take on new challenges!";
+    } else if (
+      lowerMsg.includes("tech stack") ||
+      lowerMsg.includes("technolog")
+    ) {
+      return "Tony's primary tech stack includes: React, Next.js, Node.js, TypeScript, Python, and various databases. He's also proficient with cloud platforms and modern development tools.";
+    } else {
+      return "I'm sorry, I don't have specific information about that. Would you like to know about Tony's skills, projects, or availability?";
+    }
+  };
+
+  const handleSendMessage = () => {
+    if (inputValue.trim()) {
+      const newMessages = [...messages, { text: inputValue, isUser: true }];
+      setMessages(newMessages);
+
+      setTimeout(() => {
+        const response = getBotResponse(inputValue);
+        setMessages([...newMessages, { text: response, isUser: false }]);
+      }, 1000);
+
+      setInputValue("");
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="bg-white text-gray-900">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/10 backdrop-blur-md border-b border-white/20 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold text-white">Tony Gruenwald</div>
-            <div className="hidden md:flex space-x-8">
-              <a
-                href="#about"
-                className="text-white/80 hover:text-white transition-colors"
-              >
-                About
-              </a>
-              <a
-                href="#projects"
-                className="text-white/80 hover:text-white transition-colors"
-              >
-                Projects
-              </a>
-              <a
-                href="#contact"
-                className="text-white/80 hover:text-white transition-colors"
-              >
-                Contact
-              </a>
-            </div>
+      <nav className="fixed w-full bg-white bg-opacity-95 backdrop-blur-sm z-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <a href="#" className="text-xl font-bold font-mono">
+            tony.dev
+          </a>
+          <div className="hidden md:flex space-x-8">
+            <a
+              href="#home"
+              className="font-medium text-sm hover:text-gray-600 transition-colors"
+            >
+              Home
+            </a>
+            <a
+              href="#portfolio"
+              className="font-medium text-sm hover:text-gray-600 transition-colors"
+            >
+              Work
+            </a>
+            <a
+              href="#skills"
+              className="font-medium text-sm hover:text-gray-600 transition-colors"
+            >
+              Skills
+            </a>
+            <a
+              href="#contact"
+              className="font-medium text-sm hover:text-gray-600 transition-colors"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Tony Gruenwald
-          </h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto">
-            Developer, Creator, Problem Solver
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-white/90 transition-colors">
-              View My Work
-            </button>
-            <button className="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors">
-              Get in Touch
-            </button>
+      {/* Hero Section with AI Chat */}
+      <section
+        id="home"
+        className="min-h-screen pt-20 flex items-center bg-white"
+      >
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="mb-6">
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium font-mono">
+                  Full-Stack Developer
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                Hi, I&apos;m{" "}
+                <span className="underline decoration-4 decoration-gray-200">
+                  Tony
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-gray-700 font-light">
+                I build exceptional digital experiences that make an impact
+              </p>
+              <p className="text-gray-600 mb-8 max-w-lg">
+                With expertise in both frontend and backend technologies, I
+                create scalable, user-friendly applications that solve
+                real-world problems.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="#portfolio"
+                  className="px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm"
+                >
+                  View My Work
+                </a>
+                <a
+                  href="#contact"
+                  className="px-6 py-3 border border-gray-900 text-gray-900 font-medium hover:bg-gray-900 hover:text-white transition-all text-sm"
+                >
+                  Get In Touch
+                </a>
+              </div>
+
+              <div className="mt-12 flex items-center space-x-6">
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <div className="bg-white border border-gray-200 p-6">
+                <div className="mb-4 flex justify-between items-center">
+                  <h2 className="text-lg font-medium text-gray-800 font-mono">
+                    Chat with Tony&apos;s AI Assistant
+                  </h2>
+                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                </div>
+                <div
+                  ref={chatContainerRef}
+                  className="h-96 overflow-y-auto mb-4 p-4 bg-gray-50 border border-gray-200 space-y-4"
+                  style={{
+                    scrollbarWidth: "thin",
+                    scrollbarColor: "#888 #f1f1f1",
+                  }}
+                >
+                  {messages.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`${message.isUser ? "text-right" : ""}`}
+                    >
+                      <div
+                        className={`inline-block max-w-[80%] p-3 ${
+                          message.isUser
+                            ? "bg-gray-200 text-gray-800"
+                            : "bg-gray-900 text-white"
+                        }`}
+                      >
+                        {message.text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex">
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Ask me anything..."
+                    className="flex-1 p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                  />
+                  <button
+                    onClick={handleSendMessage}
+                    className="bg-gray-900 text-white px-4 py-2 hover:bg-gray-800 transition-all"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-white/20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">
-              About Me
-            </h2>
-            <p className="text-lg text-white/80 leading-relaxed text-center">
-              Welcome to my digital space! I&apos;m passionate about creating
-              innovative solutions and bringing ideas to life through code.
-              Whether it&apos;s building web applications, solving complex
-              problems, or exploring new technologies, I&apos;m always excited
-              to take on new challenges.
-            </p>
+      {/* Portfolio Section */}
+      <section id="portfolio" className="py-24 bg-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-4">Selected Work</h2>
+            <div className="w-16 h-1 bg-gray-900"></div>
           </div>
-        </div>
-      </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
-            Featured Projects
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Smart Dashboard",
+                description:
+                  "A comprehensive analytics dashboard with real-time monitoring and automation features.",
+                tech: ["React", "Node.js", "Chart.js"],
+              },
+              {
+                title: "Mobile App",
+                description:
+                  "A cross-platform mobile application with offline capabilities and cloud sync.",
+                tech: ["React Native", "Firebase", "Redux"],
+              },
+              {
+                title: "E-commerce Platform",
+                description:
+                  "A full-featured online store with payment processing and inventory management.",
+                tech: ["Next.js", "Stripe", "PostgreSQL"],
+              },
+            ].map((project, index) => (
               <div
-                key={project}
-                className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-colors"
+                key={index}
+                className="relative overflow-hidden h-80 bg-white border border-gray-200 group"
               >
-                <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg h-48 mb-4"></div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  Project {project}
+                <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+                  <svg
+                    className="h-16 w-16 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                </div>
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-80 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <h3 className="text-xl font-bold mb-2 font-mono">
+                    {project.title}
+                  </h3>
+                  <p className="mb-4 text-sm">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <button className="self-start px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono">
+                    View Project
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-4">Skills & Expertise</h2>
+            <div className="w-16 h-1 bg-gray-900"></div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[
+              {
+                name: "React",
+                description:
+                  "Building interactive UIs with modern React hooks and context",
+              },
+              {
+                name: "Node.js",
+                description:
+                  "Server-side JavaScript with Express and microservices",
+              },
+              {
+                name: "TypeScript",
+                description:
+                  "Type-safe applications with advanced TypeScript features",
+              },
+              {
+                name: "Next.js",
+                description:
+                  "Full-stack React framework with SSR and static generation",
+              },
+              {
+                name: "Python",
+                description:
+                  "Backend development and data processing with Python",
+              },
+              {
+                name: "Databases",
+                description:
+                  "MongoDB, PostgreSQL, and Firebase for data storage",
+              },
+              {
+                name: "UI/UX Design",
+                description:
+                  "User-centered design with Figma and design systems",
+              },
+              {
+                name: "DevOps",
+                description: "CI/CD pipelines, Docker, and cloud deployment",
+              },
+            ].map((skill, index) => (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 p-6 text-center hover:shadow-lg transition-shadow"
+              >
+                <div className="w-12 h-12 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                  <svg
+                    className="h-6 w-6 text-gray-900"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <h3 className="text-base font-semibold mb-2 font-mono">
+                  {skill.name}
                 </h3>
-                <p className="text-white/70 mb-4">
-                  A brief description of this amazing project and what it
-                  accomplishes.
-                </p>
-                <button className="text-white font-semibold hover:text-white/80 transition-colors">
-                  Learn More →
-                </button>
+                <p className="text-gray-600 text-xs">{skill.description}</p>
               </div>
             ))}
           </div>
@@ -98,35 +401,213 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Let&apos;s Connect
-          </h2>
-          <p className="text-lg text-white/80 mb-8">
-            Ready to start a project or just want to chat? I&apos;d love to hear
-            from you.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-white/90 transition-colors">
-              Email Me
-            </button>
-            <button className="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors">
-              LinkedIn
-            </button>
+      <section id="contact" className="py-24 bg-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
+            <div className="w-16 h-1 bg-gray-900"></div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="bg-white p-8 border border-gray-200">
+              <h3 className="text-xl font-bold mb-6 font-mono">
+                Send Me a Message
+              </h3>
+              <form className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-gray-700 mb-2 text-sm"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-gray-700 mb-2 text-sm"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-gray-700 mb-2 text-sm"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            <div className="flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-bold mb-6 font-mono">
+                  Contact Information
+                </h3>
+                <div className="space-y-6">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-gray-100 mr-4">
+                      <svg
+                        className="h-5 w-5 text-gray-900"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm font-mono">Email</h4>
+                      <p className="text-gray-600 text-sm">tony@example.com</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-gray-100 mr-4">
+                      <svg
+                        className="h-5 w-5 text-gray-900"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm font-mono">
+                        Location
+                      </h4>
+                      <p className="text-gray-600 text-sm">San Francisco, CA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-12 bg-gray-900 p-8 text-white">
+                <h4 className="text-xl font-bold mb-4 font-mono">
+                  Let&apos;s Work Together
+                </h4>
+                <p className="mb-6 text-sm">
+                  I&apos;m currently available for new opportunities and always
+                  excited to discuss innovative projects.
+                </p>
+                <div className="flex space-x-4">
+                  <a
+                    href="#"
+                    className="flex items-center justify-center w-8 h-8 bg-white text-gray-900 hover:bg-gray-200 transition-all"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    className="flex items-center justify-center w-8 h-8 bg-white text-gray-900 hover:bg-gray-200 transition-all"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-white/20">
-        <div className="max-w-7xl mx-auto text-center text-white/60">
-          <p>
-            &copy; 2024 Tony Gruenwald. Built with Next.js and deployed on
-            Vercel.
-          </p>
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-6 md:mb-0">
+              <h2 className="text-xl font-bold font-mono">tony.dev</h2>
+              <p className="mt-2 text-sm">
+                Full-Stack Developer & Problem Solver
+              </p>
+            </div>
+            <div className="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
+              <a
+                href="#home"
+                className="hover:text-gray-300 transition-colors text-sm"
+              >
+                Home
+              </a>
+              <a
+                href="#portfolio"
+                className="hover:text-gray-300 transition-colors text-sm"
+              >
+                Work
+              </a>
+              <a
+                href="#skills"
+                className="hover:text-gray-300 transition-colors text-sm"
+              >
+                Skills
+              </a>
+              <a
+                href="#contact"
+                className="hover:text-gray-300 transition-colors text-sm"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+          <hr className="my-8 border-gray-800" />
+          <div className="text-center text-gray-400 text-xs">
+            <p>
+              &copy; 2024 Tony Gruenwald. Built with Next.js and deployed on
+              Vercel.
+            </p>
+          </div>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
