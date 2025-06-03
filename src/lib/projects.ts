@@ -88,180 +88,265 @@ export const projects: Project[] = [
     liveUrl: 'https://primeline.com'
   },
   {
-    id: 'smart-home-dashboard',
-    title: 'Smart Home Dashboard',
-    description: 'A comprehensive IoT dashboard for controlling smart home devices with real-time monitoring and automation features. The system handles data from multiple IoT devices simultaneously while maintaining a responsive interface.',
-    shortDescription: 'A comprehensive IoT dashboard with real-time monitoring and automation features.',
-    client: 'Tech Startup',
-    timeline: '4 months',
-    role: 'Full-Stack Developer',
-    technologies: ['React', 'Node.js', 'Socket.io', 'Chart.js', 'MQTT', 'Material UI', 'MongoDB'],
-    challenge: 'Creating a real-time system that could handle data from multiple IoT devices simultaneously while maintaining a responsive interface and ensuring reliable device communication.',
-    solution: 'Implemented WebSockets for real-time communication and optimized rendering with React&apos;s virtual DOM to handle frequent updates efficiently. Used MQTT protocol for reliable device messaging.',
+    id: 'lacroix-digital-ecosystem',
+    title: 'LaCroix Sparkling Water - Complete Digital Ecosystem',
+    description: 'Comprehensive digital transformation for LaCroix Sparkling Water, including a custom WordPress website with animations and recipe functionality, plus a full-featured Magento 2 e-commerce store. The project involved building two interconnected platforms: a vibrant WordPress website for brand engagement and a robust Magento 2 store for merchandise sales, creating a cohesive brand experience that captured LaCroix\'s fun, sparkling personality while delivering professional e-commerce functionality.',
+    shortDescription: 'A complete digital transformation with custom WordPress website and Magento 2 e-commerce store for LaCroix Sparkling Water.',
+    client: 'LaCroix Sparkling Water',
+    timeline: '6 months',
+    role: 'Full-Stack Developer & Brand Implementation Lead',
+    technologies: ['WordPress', 'Magento 2', 'PHP', 'Custom Theme Development', 'Advanced Custom Fields', 'Mailchimp API', 'Payment Gateway Integration', 'JavaScript Animations'],
+    challenge: 'LaCroix Sparkling Water needed a complete digital transformation to showcase their brand personality and provide seamless e-commerce functionality. The main challenge was creating a cohesive brand experience that captured LaCroix\'s fun, sparkling personality while delivering professional e-commerce functionality with custom animations, interactive recipe cards, and social media integration.',
+    solution: 'Built two interconnected platforms: a vibrant WordPress website for brand engagement featuring custom animations, interactive recipe cards, and social media integration, alongside a robust Magento 2 store for merchandise sales. Implemented unified brand experience across both platforms with consistent design language and optimized user flows.',
     features: [
       {
-        icon: 'home',
-        title: 'Device Control',
-        description: 'Centralized control for lights, thermostats, security systems, and other smart devices with real-time status updates.'
+        icon: 'recipe',
+        title: 'Interactive Recipe Cards',
+        description: 'Custom-built recipe system featuring cocktails and mocktails with LaCroix flavors, complete with ingredient lists and instructions.'
       },
       {
-        icon: 'chart',
-        title: 'Energy Monitoring',
-        description: 'Track energy usage patterns and costs with detailed analytics and recommendations for optimization.'
+        icon: 'sparkle',
+        title: 'Custom Animations',
+        description: 'Engaging CSS and JavaScript animations that bring the "sparkle" to life throughout the user experience.'
       },
       {
-        icon: 'automation',
-        title: 'Automation Rules',
-        description: 'Create custom automation scenarios based on time, device states, and environmental conditions.'
+        icon: 'social',
+        title: 'Social Media Integration',
+        description: '#LiveLaCroix campaign integration with real-time social media feeds and user-generated content showcase.'
+      },
+      {
+        icon: 'checkout',
+        title: 'Seamless Checkout',
+        description: 'Optimized Magento 2 checkout flow with multiple payment options and streamlined user experience.'
       },
       {
         icon: 'mobile',
-        title: 'Mobile Responsive',
-        description: 'Fully responsive design that works seamlessly across desktop, tablet, and mobile devices.'
-      }
-    ],
-    category: 'web'
-  },
-  {
-    id: 'fitness-tracker-app',
-    title: 'Fitness Tracker App',
-    description: 'A mobile application for tracking workouts, nutrition, and health metrics with personalized insights and goal setting. Integrates with various health APIs while ensuring data privacy and providing meaningful insights.',
-    shortDescription: 'A cross-platform mobile application with offline capabilities and cloud sync.',
-    client: 'Health & Wellness Company',
-    timeline: '5 months',
-    role: 'Mobile Developer & UX Designer',
-    technologies: ['React Native', 'Firebase', 'HealthKit', 'Google Fit API', 'Redux', 'Cloud Functions'],
-    challenge: 'Integrating with various health APIs while ensuring data privacy and providing meaningful insights from complex health data. The app needed to work offline and sync data when connectivity was restored.',
-    solution: 'Created a secure data processing pipeline with user-controlled privacy settings and developed custom algorithms for generating personalized insights. Implemented sophisticated caching strategies for offline functionality.',
-    features: [
-      {
-        icon: 'activity',
-        title: 'Workout Tracking',
-        description: 'Log and track various exercises with sets, reps, weight, and duration. Includes pre-built workout templates and custom routine creation.'
-      },
-      {
-        icon: 'nutrition',
-        title: 'Nutrition Logging',
-        description: 'Comprehensive food database with barcode scanning, macro tracking, and meal planning features.'
-      },
-      {
-        icon: 'health',
-        title: 'Health Metrics',
-        description: 'Monitor vital signs, sleep patterns, and other health indicators with integration to wearable devices.'
-      },
-      {
-        icon: 'goals',
-        title: 'Goal Setting',
-        description: 'Set and track fitness goals with progress visualization and adaptive recommendations.'
-      }
-    ],
-    category: 'mobile'
-  },
-  {
-    id: 'banking-app-redesign',
-    title: 'Banking App Redesign',
-    description: 'A complete UI/UX redesign for a banking application focusing on accessibility, user experience, and modern design principles. Balanced modern design aesthetics with strict banking security requirements.',
-    shortDescription: 'A complete UI/UX redesign focusing on accessibility and user experience.',
-    client: 'Regional Bank',
-    timeline: '6 months',
-    role: 'UX/UI Designer & Frontend Developer',
-    technologies: ['Figma', 'React', 'TypeScript', 'Styled Components', 'Accessibility Standards', 'User Testing'],
-    challenge: 'Balancing modern design aesthetics with strict banking security requirements and accessibility needs for diverse users. The existing app had poor usability scores and accessibility issues.',
-    solution: 'Conducted extensive user research with diverse user groups and created a modular design system that maintained brand identity while improving usability. Implemented comprehensive accessibility features.',
-    features: [
-      {
-        icon: 'accessibility',
-        title: 'Accessibility First',
-        description: 'WCAG 2.1 AA compliant design with screen reader support, high contrast modes, and keyboard navigation.'
-      },
-      {
-        icon: 'dashboard',
-        title: 'Personalized Dashboard',
-        description: 'Customizable dashboard with account overviews, recent transactions, and quick actions based on user behavior.'
-      },
-      {
-        icon: 'security',
-        title: 'Enhanced Security',
-        description: 'Biometric authentication, fraud detection alerts, and secure transaction confirmation flows.'
-      },
-      {
-        icon: 'mobile-first',
         title: 'Mobile-First Design',
-        description: 'Responsive design optimized for mobile usage with touch-friendly interfaces and gesture support.'
+        description: 'Fully responsive design optimized for mobile users, ensuring perfect experience across all devices.'
+      },
+      {
+        icon: 'brand',
+        title: 'Brand Consistency',
+        description: 'Unified brand experience across both platforms with consistent design language and user flows.'
+      },
+      {
+        icon: 'wordpress',
+        title: 'Custom WordPress Theme',
+        description: 'Complete custom WordPress theme design with custom post types, Advanced Custom Fields integration, and email newsletter functionality.'
+      },
+      {
+        icon: 'magento',
+        title: 'Magento 2 E-commerce',
+        description: 'Full Magento 2 customization with branded merchandise catalog, custom checkout experience, and inventory management.'
       }
     ],
-    category: 'ui'
+    category: 'web',
+    liveUrl: 'https://www.lacroixwater.com/'
   },
   {
-    id: 'travel-companion-app',
-    title: 'Travel Companion App',
-    description: 'A travel app with itinerary planning, local recommendations, and offline maps for travelers exploring new destinations. Features seamless offline functionality and background sync capabilities.',
-    shortDescription: 'A travel app with itinerary planning, local recommendations, and offline maps.',
-    client: 'Travel Agency',
+    id: 'faygo-detroit-pop',
+    title: 'Faygo - The One True Pop',
+    description: 'Complete digital transformation for Faygo Beverages, Detroit\'s legendary pop company with over 50 flavors since 1907. Built a custom WordPress website featuring an interactive flavor explorer, pop culture integration, and authentic Detroit-inspired design that honors their 115+ year history while appealing to both longtime fans and new customers discovering the Motor City spirit.',
+    shortDescription: 'A custom WordPress website for Detroit\'s iconic pop company featuring interactive flavor explorer and authentic Motor City design.',
+    client: 'Faygo Beverages',
+    timeline: '5 months',
+    role: 'Full-Stack WordPress Developer & Brand Experience Designer',
+    technologies: ['WordPress', 'PHP', 'Custom Theme Development', 'Advanced Custom Fields', 'JavaScript', 'Google Maps API', 'WooCommerce', 'Social Media Integration'],
+    challenge: 'Faygo Beverages, Detroit\'s iconic pop company since 1907, needed a digital presence that captured their authentic Motor City spirit and showcased their incredible variety of over 50 unique flavors. The challenge was creating a website that honored their rich history while appealing to both longtime fans and new customers.',
+    solution: 'Created a custom WordPress website that celebrates Faygo\'s pop culture significance with an interactive flavor discovery experience and authentic Detroit personality. Developed custom post types for flavor management, integrated e-commerce functionality, and built an advanced store locator to help fans find their favorite flavors nationwide.',
+    features: [
+      {
+        icon: 'flavor',
+        title: 'Interactive Flavor Explorer',
+        description: 'Custom-built flavor discovery system showcasing over 50 unique Faygo flavors with detailed descriptions, size options, and availability information.'
+      },
+      {
+        icon: 'culture',
+        title: 'Pop Culture Integration',
+        description: 'Celebrating Faygo\'s legendary status in pop culture with dedicated sections, social media integration, and interactive cultural references.'
+      },
+      {
+        icon: 'detroit',
+        title: 'Detroit Heritage Design',
+        description: 'Authentic Motor City-inspired design elements that honor Faygo\'s 115+ year history and deep roots in Detroit culture.'
+      },
+      {
+        icon: 'locator',
+        title: 'Pop Locator System',
+        description: 'Advanced store locator functionality helping fans find their favorite Faygo flavors at nearby retailers across the country.'
+      },
+      {
+        icon: 'history',
+        title: 'Brand History Showcase',
+        description: 'Interactive timeline and storytelling features that celebrate Faygo\'s incredible journey from 1907 to present day.'
+      },
+      {
+        icon: 'ecommerce',
+        title: 'E-commerce Integration',
+        description: 'Seamless integration with online shop functionality for Faygo merchandise and direct product purchasing through WooCommerce.'
+      }
+    ],
+    category: 'web',
+    liveUrl: 'https://www.faygo.com/'
+  },
+  {
+    id: 'saltwater-getaway-yacht-charter',
+    title: 'Saltwater Getaway - Luxury Yacht Charter Service',
+    description: 'Premium yacht charter website built on Squarespace with seamless FareHarbor booking integration. Designed for luxury marine tourism in St. Petersburg, FL, featuring personalized charter experiences, professional crew profiles, and streamlined booking workflows. The platform showcases the exclusivity and personalization of luxury yacht charter services while providing an intuitive booking experience that converts visitors into customers.',
+    shortDescription: 'A luxury yacht charter website with Squarespace and FareHarbor booking integration for premium marine tourism experiences.',
+    client: 'Saltwater Getaway',
     timeline: '4 months',
-    role: 'Mobile Developer',
-    technologies: ['Flutter', 'Google Maps API', 'Firebase', 'SQLite', 'REST APIs', 'Bloc Pattern'],
-    challenge: 'Creating a seamless experience that works offline in areas with limited connectivity while providing up-to-date information when online. The app needed to handle large amounts of location data efficiently.',
-    solution: 'Implemented sophisticated caching strategies and background sync to ensure critical features work offline while updating data when connectivity is restored. Used efficient data compression and smart preloading.',
+    role: 'Squarespace Developer & Tourism UX Designer',
+    technologies: ['Squarespace', 'FareHarbor Integration', 'Custom CSS/JavaScript', 'Responsive Design', 'SEO Optimization', 'Payment Processing', 'Booking System Integration'],
+    challenge: 'Saltwater Getaway needed a premium website that could showcase their luxury yacht charter services while providing a seamless booking experience for customers. The challenge was creating a sophisticated platform that conveyed the exclusivity and personalization of their services while integrating a robust booking system.',
+    solution: 'Developed a custom Squarespace site with FareHarbor integration, featuring elegant design, comprehensive service presentation, crew profiles, and streamlined booking workflows. Created visual storytelling elements and mobile-optimized experiences that showcase yacht experiences and Florida\'s beautiful coastline to inspire bookings.',
     features: [
       {
-        icon: 'map',
-        title: 'Offline Maps',
-        description: 'Download maps for offline use with points of interest, walking directions, and location bookmarks.'
+        icon: 'squarespace',
+        title: 'Squarespace Platform Mastery',
+        description: 'Custom Squarespace development with advanced design customization, responsive layouts, and optimized performance for luxury service presentation.'
       },
       {
-        icon: 'calendar',
-        title: 'Itinerary Planning',
-        description: 'Create detailed travel itineraries with time management, location optimization, and sharing capabilities.'
+        icon: 'booking',
+        title: 'FareHarbor Booking Integration',
+        description: 'Seamless third-party booking system integration allowing customers to check availability, book charters, and manage reservations in real-time.'
       },
       {
-        icon: 'recommendations',
-        title: 'Local Recommendations',
-        description: 'Discover restaurants, attractions, and activities based on location, preferences, and local insights.'
+        icon: 'gallery',
+        title: 'Visual Storytelling',
+        description: 'Rich photo gallery showcasing yacht experiences, crew personalities, and Florida\'s beautiful coastline to inspire bookings.'
       },
       {
-        icon: 'journal',
-        title: 'Travel Journal',
-        description: 'Document your travels with photos, notes, and memories that sync across devices.'
+        icon: 'location',
+        title: 'Location & Contact Integration',
+        description: 'Integrated mapping, contact forms, and location details for Demens Landing Park with clear directions and contact information.'
+      },
+      {
+        icon: 'mobile',
+        title: 'Mobile-Optimized Experience',
+        description: 'Responsive design ensuring seamless browsing and booking experiences across all devices, particularly important for on-the-go customers.'
+      },
+      {
+        icon: 'service',
+        title: 'Service Differentiation',
+        description: 'Clear presentation of different charter options with distinct pricing, duration, and experience details to guide customer decisions.'
       }
     ],
-    category: 'mobile'
+    category: 'web',
+    liveUrl: 'https://www.saltwatergetaway.com/'
   },
   {
-    id: 'design-system',
-    title: 'Design System',
-    description: 'A comprehensive design system with components, guidelines, and documentation for product teams to ensure consistent user experiences across multiple products and platforms.',
-    shortDescription: 'A comprehensive design system with components and documentation.',
-    client: 'Enterprise Software Company',
-    timeline: '8 months',
-    role: 'Design Systems Lead',
-    technologies: ['Storybook', 'Styled Components', 'Figma', 'Jest', 'GitHub Actions', 'TypeScript'],
-    challenge: 'Creating a flexible system that could be used across multiple products while maintaining consistency and allowing for product-specific customizations. Teams had inconsistent implementations and poor collaboration.',
-    solution: 'Developed a token-based architecture with theming support and created comprehensive documentation with interactive examples to facilitate adoption. Established governance processes and automated testing.',
+    id: 'oceanblue-omega-supplements',
+    title: 'OceanBlue Omega - Premium Supplement Store',
+    description: 'Complete Shopify e-commerce transformation for OceanBlue Omega, featuring custom Liquid theme development, mobile-first responsive design, and sustainability-focused branding. Built a comprehensive supplement catalog with interactive product quiz, seamless checkout experience, and advanced conversion optimization. The platform showcases their "Nothin\' but the Good Stuff" philosophy through quality assurance messaging, environmental partnerships, and transparent pricing strategies.',
+    shortDescription: 'A premium Shopify supplement store with custom Liquid theme, interactive product quiz, and sustainability-focused branding.',
+    client: 'OceanBlue Omega',
+    timeline: '6 months',
+    role: 'Shopify Developer & E-commerce UX Designer',
+    technologies: ['Shopify', 'Liquid', 'JavaScript', 'Mobile-First Design', 'Klaviyo', 'Google Maps API', 'CSS/SCSS', 'E-commerce Optimization'],
+    challenge: 'OceanBlue Omega needed a premium e-commerce platform that could educate customers about complex nutritional benefits while providing a seamless mobile shopping experience. The challenge was positioning them as the premium choice in the crowded supplement market while building trust through transparency and quality messaging.',
+    solution: 'Developed a custom Shopify Liquid theme with mobile-first design principles, interactive product recommendations, sustainability storytelling, and conversion-optimized checkout flows. Created an educational platform that builds trust through quality certifications, environmental partnerships, and clear value propositions.',
     features: [
       {
-        icon: 'components',
-        title: 'Component Library',
-        description: 'Reusable UI components with props, variants, and comprehensive API documentation for developers.'
+        icon: 'mobile',
+        title: 'Mobile-First Design',
+        description: 'Responsive Liquid theme optimized for mobile shopping with touch-friendly product galleries, streamlined checkout, and thumb-friendly navigation for seamless mobile experience.'
       },
       {
-        icon: 'tokens',
-        title: 'Design Tokens',
-        description: 'Centralized design tokens for colors, typography, spacing, and animations with multi-platform export.'
+        icon: 'quiz',
+        title: 'Interactive Product Quiz',
+        description: 'Custom JavaScript-powered quiz functionality helping customers find their perfect Omega-3 formula based on health goals and lifestyle preferences.'
       },
       {
-        icon: 'documentation',
-        title: 'Living Documentation',
-        description: 'Interactive documentation with code examples, usage guidelines, and design principles.'
+        icon: 'sustainability',
+        title: 'Sustainability Storytelling',
+        description: 'Partnership showcase with 4ocean for ocean plastic neutrality, sustainably sourced ingredients, and comprehensive environmental commitment messaging.'
       },
       {
-        icon: 'testing',
-        title: 'Automated Testing',
-        description: 'Visual regression testing, accessibility testing, and component testing integrated into CI/CD pipeline.'
+        icon: 'quality',
+        title: 'Quality Assurance Features',
+        description: 'Prominent display of "No Fishy Burps," third-party testing, mercury-free certification, and full transparency messaging to build customer trust.'
+      },
+      {
+        icon: 'locator',
+        title: 'Store Locator Integration',
+        description: 'Custom store finder with Google Maps API helping customers locate OceanBlue products at nearby retailers, bridging online and offline shopping experiences.'
+      },
+      {
+        icon: 'shopify',
+        title: 'Advanced Shopify Development',
+        description: 'Custom Liquid theme development with product variant management, subscription setup, email marketing integration, and conversion-optimized checkout flows.'
+      },
+      {
+        icon: 'supplement',
+        title: 'Supplement-Specific Features',
+        description: 'Specialized product catalog showcasing Essentials and Professional series with detailed nutritional information, dosage guidance, and health benefit messaging.'
+      },
+      {
+        icon: 'checkout',
+        title: 'Conversion Optimization',
+        description: 'Strategic pricing display, subscription options, free shipping thresholds, and 20% email signup incentives designed to maximize conversion rates.'
       }
     ],
-    category: 'ui'
-  }
+    category: 'web',
+    liveUrl: 'https://www.oceanblueomega.com/'
+  },
+  {
+    id: 'carbon-marine-equipment',
+    title: 'Carbon Marine - Specialized Marine Equipment Store',
+    description: 'Custom Shopify Liquid theme development for Carbon Marine, a premium marine equipment retailer specializing in carbon fiber push poles, tiller extensions, and fly fishing accessories. Built for the specialized marine industry with complex product categorization, technical specifications display, and mobile-first design optimized for anglers who often shop while on the water.',
+    shortDescription: 'A specialized Shopify marine equipment store with custom Liquid theme and complex product categorization for the fishing industry.',
+    client: 'Carbon Marine',
+    timeline: '5 months',
+    role: 'Shopify Developer & Marine Industry UX Specialist',
+    technologies: ['Shopify', 'Liquid', 'JavaScript', 'CSS/SCSS', 'Mobile-First Design', 'E-commerce Optimization', 'Marine Industry UX'],
+    challenge: 'Carbon Marine required a specialized e-commerce platform to showcase their premium marine equipment to a highly knowledgeable customer base. The challenge was creating a Shopify store that could effectively organize and present complex product lines while maintaining the technical credibility essential in the marine industry.',
+    solution: 'Developed a custom Liquid theme with sophisticated product categorization, detailed technical specifications display, and mobile-responsive design optimized for both on-the-water and desktop shopping experiences. Created an intuitive navigation system for hundreds of specialized marine products organized by type, compatibility, and application.',
+    features: [
+      {
+        icon: 'mobile',
+        title: 'Mobile-Optimized Design',
+        description: 'Responsive Liquid theme designed for anglers who often shop while on the water, with touch-friendly navigation and fast loading times optimized for marine environments.'
+      },
+      {
+        icon: 'marine',
+        title: 'Complex Product Categorization',
+        description: 'Sophisticated navigation system organizing hundreds of specialized marine products by type, compatibility, and application across six major product categories.'
+      },
+      {
+        icon: 'specifications',
+        title: 'Technical Specifications Display',
+        description: 'Detailed product information presentation including compatibility charts, dimensions, and technical specifications critical for marine equipment selection and performance.'
+      },
+      {
+        icon: 'guide',
+        title: 'Guide Program Integration',
+        description: 'Specialized program features for fishing guides with dedicated sections and professional-oriented product recommendations tailored to commercial fishing operations.'
+      },
+      {
+        icon: 'inventory',
+        title: 'Smart Inventory Management',
+        description: 'Advanced inventory display showing availability, blemished items, and clearance sections to help customers find the best deals while managing stock levels effectively.'
+      },
+      {
+        icon: 'care',
+        title: 'Care Information Integration',
+        description: 'Comprehensive care and maintenance information helping customers maximize the lifespan of their premium marine equipment with detailed usage and storage guidelines.'
+      },
+      {
+        icon: 'shopify',
+        title: 'Advanced Shopify Development',
+        description: 'Custom Liquid template development with complex product variant management, multi-level category organization, and cross-browser compatibility optimization.'
+      },
+      {
+        icon: 'fishing',
+        title: 'Fishing Industry Specialization',
+        description: 'Specialized features for carbon fiber push poles, tiller extensions, fly line management, and species-specific fishing accessories with detailed compatibility information.'
+      }
+    ],
+    category: 'web',
+    liveUrl: 'https://www.carbonmarine.com/'
+  },
 ];
 
 export const getProjectsByCategory = (category: string): Project[] => {
