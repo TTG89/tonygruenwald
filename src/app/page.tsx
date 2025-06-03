@@ -4,6 +4,83 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { projects, getProjectsByCategory } from "../lib/projects";
 
+// Typing Animation Component
+function TypingAnimation() {
+  const [currentText, setCurrentText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
+
+  const titles = [
+    "Software Engineer",
+    "Full-Stack Developer",
+    "Frontend Developer",
+  ];
+
+  useEffect(() => {
+    if (isWaiting) {
+      const waitTimeout = setTimeout(() => {
+        setIsWaiting(false);
+        setIsDeleting(true);
+      }, 2000); // Wait 2 seconds before starting to delete
+      return () => clearTimeout(waitTimeout);
+    }
+
+    const currentTitle = titles[currentIndex];
+    let timeout: NodeJS.Timeout;
+
+    if (!isDeleting) {
+      // Typing
+      if (currentText.length < currentTitle.length) {
+        timeout = setTimeout(() => {
+          setCurrentText(currentTitle.slice(0, currentText.length + 1));
+        }, 100);
+      } else {
+        // Finished typing, wait before deleting
+        setIsWaiting(true);
+      }
+    } else {
+      // Deleting
+      if (currentText.length > 0) {
+        // Special handling for "Full-Stack Developer" -> "Frontend Developer"
+        if (currentIndex === 1 && currentText === "Full-Stack Developer") {
+          // Delete only "Full-Stack " and keep "Developer"
+          if (currentText.length > "Frontend Developer".length) {
+            timeout = setTimeout(() => {
+              setCurrentText(currentText.slice(0, -1));
+            }, 50);
+          } else {
+            // Start typing "Frontend"
+            setIsDeleting(false);
+            setCurrentIndex(2);
+            timeout = setTimeout(() => {
+              setCurrentText("Frontend Developer");
+            }, 100);
+          }
+        } else {
+          // Normal deletion
+          timeout = setTimeout(() => {
+            setCurrentText(currentText.slice(0, -1));
+          }, 50);
+        }
+      } else {
+        // Finished deleting, move to next title
+        setIsDeleting(false);
+        setCurrentIndex((prev) => (prev + 1) % titles.length);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [currentText, currentIndex, isDeleting, isWaiting, titles]);
+
+  return (
+    <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium font-mono">
+      {currentText}
+      <span className="animate-pulse">|</span>
+    </span>
+  );
+}
+
 export default function Home() {
   const [messages, setMessages] = useState([
     {
@@ -124,9 +201,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="mb-6">
-                <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium font-mono">
-                  Full-Stack Developer
-                </span>
+                <TypingAnimation />
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                 Hi, I&apos;m{" "}
