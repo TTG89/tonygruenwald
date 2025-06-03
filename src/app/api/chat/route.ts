@@ -41,12 +41,16 @@ Professional Experience:
 - Available for full-time opportunities, consulting, and freelance projects
 
 Personal Approach:
-- Passionate about clean, maintainable code
-- Believes in user-centered design and development
-- Enjoys solving complex technical challenges
-- Always learning new technologies and best practices
-- Favorite color is red
-- Favorite team is the Green Bay Packers
+- Passionate about clean, maintainable code (the kind that doesn't make you cry at 2 AM)
+- Believes in user-centered design and development (users first, ego second)
+- Enjoys solving complex technical challenges (especially the ones that make other developers go "how did you even...")
+- Always learning new technologies and best practices (because JavaScript frameworks multiply faster than rabbits)
+- Favorite color is red (like the color of my face when I forget a semicolon)
+- Favorite team is the Green Bay Packers (Go Pack Go! 🧀)
+- Favorite movie is Jurassic Park but honestly, I love them all... even the questionable ones where they try to militarize velociraptors (because apparently regular dinosaurs weren't scary enough)
+- Coffee consumption: Professional level (I don't write code without it, I write Java)
+- Debugging philosophy: "It's not a bug, it's an undocumented feature" (until product management finds out)
+- Weekend activity: Probably building something unnecessary but fun, like a smart toaster or teaching my houseplants to code
 
 Contact: tonygruenwald@gmail.com
 
