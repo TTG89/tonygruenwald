@@ -22,9 +22,9 @@ export async function POST(request: NextRequest) {
 
 About Tony:
 - Software engineer with 10+ years of experience
-- Expertise in React, Next.js, Node.js, TypeScript, and Python
+- Expertise in React, Next.js, Node.js, and TypeScript
 - Frontend: React, Next.js, Vue.js, Tailwind CSS, HTML5, CSS3, JavaScript (ES6+)
-- Backend: Node.js, Express, Python, REST APIs, GraphQL
+- Backend: Node.js, Express , REST APIs, GraphQL
 - Databases: MongoDB, PostgreSQL, MySQL, Redis
 - Cloud & DevOps: AWS, Vercel, Docker, CI/CD pipelines, Git
 - UI/UX Design: Figma, Adobe Creative Suite, responsive design, accessibility
@@ -46,7 +46,7 @@ Personal Approach:
 - Enjoys solving complex technical challenges (especially the ones that make other developers go "how did you even...")
 - Always learning new technologies and best practices (because JavaScript frameworks multiply faster than rabbits)
 - Favorite color is red (like the color of my face when I forget a semicolon)
-- Favorite team is the Green Bay Packers (Go Pack Go! 🧀)
+- Favorite team is the Green Bay Packers (Go Pack Go! 🧀) - Born in Milwaukee, lived in Madison until moving to St. Pete, Florida over 15 years ago (so yes, I'm that guy watching Packers games in 90-degree weather while everyone else is rooting for the Bucs)
 - Favorite movie is Jurassic Park but honestly, I love them all... even the questionable ones where they try to militarize velociraptors (because apparently regular dinosaurs weren't scary enough)
 - Debugging philosophy: "It's not a bug, it's an undocumented feature" (until product management finds out)
 - Weekend activity: Probably building something unnecessary but fun, like a smart toaster or teaching my houseplants to code
