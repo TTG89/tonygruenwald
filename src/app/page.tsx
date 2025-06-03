@@ -14,6 +14,7 @@ export default function Home() {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -27,52 +28,41 @@ export default function Home() {
     scrollToBottom();
   }, [messages]);
 
-  const getBotResponse = (message: string) => {
-    const lowerMsg = message.toLowerCase();
-
-    if (
-      lowerMsg.includes("hello") ||
-      lowerMsg.includes("hi ") ||
-      lowerMsg === "hi"
-    ) {
-      return "Hello! How can I help you today? Feel free to ask about Tony's experience, skills, or projects.";
-    } else if (
-      lowerMsg.includes("skill") ||
-      lowerMsg.includes("what can you do")
-    ) {
-      return "Tony specializes in full-stack development with React, Node.js, and TypeScript. He&apos;s also experienced in mobile development and has strong UI/UX design skills.";
-    } else if (
-      lowerMsg.includes("experience") ||
-      lowerMsg.includes("background")
-    ) {
-      return "Tony has extensive experience in web and mobile development. He&apos;s worked with startups and enterprise clients across various industries including fintech, healthcare, and e-commerce.";
-    } else if (lowerMsg.includes("project") || lowerMsg.includes("work")) {
-      return "Tony has worked on several notable projects including web applications, mobile apps, and design systems. Would you like to know more about any specific type of project?";
-    } else if (lowerMsg.includes("contact") || lowerMsg.includes("reach")) {
-      return "You can contact Tony through the contact form on this page, or connect with him on LinkedIn and GitHub.";
-    } else if (lowerMsg.includes("availab") || lowerMsg.includes("hire")) {
-      return "Tony is currently available for new opportunities and projects. He&apos;s always excited to take on new challenges!";
-    } else if (
-      lowerMsg.includes("tech stack") ||
-      lowerMsg.includes("technolog")
-    ) {
-      return "Tony's primary tech stack includes: React, Next.js, Node.js, TypeScript, Python, and various databases. He's also proficient with cloud platforms and modern development tools.";
-    } else {
-      return "I'm sorry, I don't have specific information about that. Would you like to know about Tony's skills, projects, or availability?";
-    }
-  };
-
-  const handleSendMessage = () => {
-    if (inputValue.trim()) {
-      const newMessages = [...messages, { text: inputValue, isUser: true }];
+  const handleSendMessage = async () => {
+    if (inputValue.trim() && !isLoading) {
+      const userMessage = inputValue;
+      const newMessages = [...messages, { text: userMessage, isUser: true }];
       setMessages(newMessages);
-
-      setTimeout(() => {
-        const response = getBotResponse(inputValue);
-        setMessages([...newMessages, { text: response, isUser: false }]);
-      }, 1000);
-
       setInputValue("");
+      setIsLoading(true);
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: userMessage }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to get response");
+        }
+
+        const data = await response.json();
+        setMessages([...newMessages, { text: data.reply, isUser: false }]);
+      } catch (error) {
+        console.error("Error:", error);
+        setMessages([
+          ...newMessages,
+          {
+            text: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.",
+            isUser: false,
+          },
+        ]);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -228,24 +218,32 @@ export default function Home() {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder="Ask me anything..."
-                    className="flex-1 p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                    placeholder={
+                      isLoading ? "Thinking..." : "Ask me anything..."
+                    }
+                    disabled={isLoading}
+                    className="flex-1 p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   />
                   <button
                     onClick={handleSendMessage}
-                    className="bg-gray-900 text-white px-4 py-2 hover:bg-gray-800 transition-all"
+                    disabled={isLoading || !inputValue.trim()}
+                    className="bg-gray-900 text-white px-4 py-2 hover:bg-gray-800 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
-                    <svg
-                      className="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    {isLoading ? (
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    ) : (
+                      <svg
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
                   </button>
                 </div>
               </div>
