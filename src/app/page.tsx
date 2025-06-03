@@ -427,7 +427,7 @@ export default function Home() {
                 </div>
                 <div className="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <div className="mb-2">
-                    <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono rounded">
+                    <span className="px-2 py-1 bg-white bg-opacity-20 text-black text-xs font-mono rounded">
                       {project.category.toUpperCase()}
                     </span>
                   </div>
