@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
           content: `You are Tony Gruenwald's virtual assistant. You help visitors learn about Tony's professional background, skills, and experience. 
 
 About Tony:
-- Full-stack developer with 10+ years of experience
+- Software engineer with 10+ years of experience
 - Expertise in React, Next.js, Node.js, TypeScript, and Python
 - Frontend: React, Next.js, Vue.js, Tailwind CSS, HTML5, CSS3, JavaScript (ES6+)
 - Backend: Node.js, Express, Python, REST APIs, GraphQL

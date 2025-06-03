@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { projects, getProjectsByCategory } from "../lib/projects";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -15,7 +17,11 @@ export default function Home() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("all");
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Get filtered projects
+  const filteredProjects = getProjectsByCategory(selectedFilter);
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
@@ -78,7 +84,7 @@ export default function Home() {
       <nav className="fixed w-full bg-white bg-opacity-95 backdrop-blur-sm z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <a href="#" className="text-xl font-bold font-mono">
-            tony.dev
+            tonygruenwald.dev
           </a>
           <div className="hidden md:flex space-x-8">
             <a
@@ -258,55 +264,105 @@ export default function Home() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-4">Selected Work</h2>
             <div className="w-16 h-1 bg-gray-900"></div>
+            <p className="text-gray-600 mt-4 max-w-2xl">
+              Here are some of my recent projects showcasing different
+              technologies and approaches to solving complex problems.
+            </p>
           </div>
 
+          {/* Filter Tabs */}
+          <div className="flex justify-center mb-12">
+            <div className="flex space-x-1 bg-white border border-gray-200 p-1">
+              {[
+                { key: "all", label: "All Projects" },
+                { key: "web", label: "Web Apps" },
+                { key: "mobile", label: "Mobile" },
+                { key: "ui", label: "UI/UX" },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setSelectedFilter(tab.key)}
+                  className={`px-4 py-2 text-sm font-medium transition-all ${
+                    selectedFilter === tab.key
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Smart Dashboard",
-                description:
-                  "A comprehensive analytics dashboard with real-time monitoring and automation features.",
-                tech: ["React", "Node.js", "Chart.js"],
-              },
-              {
-                title: "Mobile App",
-                description:
-                  "A cross-platform mobile application with offline capabilities and cloud sync.",
-                tech: ["React Native", "Firebase", "Redux"],
-              },
-              {
-                title: "E-commerce Platform",
-                description:
-                  "A full-featured online store with payment processing and inventory management.",
-                tech: ["Next.js", "Stripe", "PostgreSQL"],
-              },
-            ].map((project, index) => (
+            {filteredProjects.map((project) => (
               <div
-                key={index}
-                className="relative overflow-hidden h-80 bg-white border border-gray-200 group"
+                key={project.id}
+                className="relative overflow-hidden h-80 bg-white border border-gray-200 group hover:shadow-lg transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-                  <svg
-                    className="h-16 w-16 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
+                  {/* Dynamic icon based on project category */}
+                  {project.category === "web" && (
+                    <svg
+                      className="h-16 w-16 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  )}
+                  {project.category === "mobile" && (
+                    <svg
+                      className="h-16 w-16 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z"
+                      />
+                    </svg>
+                  )}
+                  {project.category === "ui" && (
+                    <svg
+                      className="h-16 w-16 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
+                      />
+                    </svg>
+                  )}
                 </div>
-                <div className="absolute inset-0 bg-gray-900 bg-opacity-80 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="mb-2">
+                    <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono rounded">
+                      {project.category.toUpperCase()}
+                    </span>
+                  </div>
                   <h3 className="text-xl font-bold mb-2 font-mono">
                     {project.title}
                   </h3>
-                  <p className="mb-4 text-sm">{project.description}</p>
+                  <p className="mb-4 text-sm leading-relaxed">
+                    {project.shortDescription}
+                  </p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
+                    {project.technologies.slice(0, 3).map((tech, techIndex) => (
                       <span
                         key={techIndex}
                         className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono"
@@ -314,13 +370,51 @@ export default function Home() {
                         {tech}
                       </span>
                     ))}
+                    {project.technologies.length > 3 && (
+                      <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono">
+                        +{project.technologies.length - 3} more
+                      </span>
+                    )}
                   </div>
-                  <button className="self-start px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono">
-                    View Project
-                  </button>
+                  <div className="flex space-x-3">
+                    <Link
+                      href={`/projects/${project.id}`}
+                      className="px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono"
+                    >
+                      View Details
+                    </Link>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 border border-white text-white font-medium hover:bg-white hover:text-gray-900 transition-all text-xs font-mono"
+                      >
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Show project count and "View All" button */}
+          <div className="text-center mt-12">
+            <p className="text-gray-600 mb-4">
+              Showing {filteredProjects.length} of {projects.length} projects
+              {selectedFilter !== "all" &&
+                ` in ${
+                  selectedFilter.charAt(0).toUpperCase() +
+                  selectedFilter.slice(1)
+                }`}
+            </p>
+            <Link
+              href="/projects"
+              className="px-8 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono"
+            >
+              View All Projects
+            </Link>
           </div>
         </div>
       </section>
