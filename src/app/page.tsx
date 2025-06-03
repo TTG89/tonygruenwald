@@ -4,18 +4,19 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { projects, getProjectsByCategory } from "../lib/projects";
 
+// Constant array for typing animation titles
+const TYPING_TITLES = [
+  "Software Engineer",
+  "Full-Stack Developer",
+  "Frontend Developer",
+];
+
 // Typing Animation Component
 function TypingAnimation() {
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
-
-  const titles = [
-    "Software Engineer",
-    "Full-Stack Developer",
-    "Frontend Developer",
-  ];
 
   useEffect(() => {
     if (isWaiting) {
@@ -26,7 +27,7 @@ function TypingAnimation() {
       return () => clearTimeout(waitTimeout);
     }
 
-    const currentTitle = titles[currentIndex];
+    const currentTitle = TYPING_TITLES[currentIndex];
     let timeout: NodeJS.Timeout;
 
     if (!isDeleting) {
@@ -66,12 +67,12 @@ function TypingAnimation() {
       } else {
         // Finished deleting, move to next title
         setIsDeleting(false);
-        setCurrentIndex((prev) => (prev + 1) % titles.length);
+        setCurrentIndex((prev) => (prev + 1) % TYPING_TITLES.length);
       }
     }
 
     return () => clearTimeout(timeout);
-  }, [currentText, currentIndex, isDeleting, isWaiting, titles]);
+  }, [currentText, currentIndex, isDeleting, isWaiting]);
 
   return (
     <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium font-mono">
@@ -531,8 +532,7 @@ export default function Home() {
               },
               {
                 name: "Databases",
-                description:
-                  "MongoDB, PostgreSQL, and Firebase for data storage",
+                description: "MongoDB for PostgreSQL for data storage",
               },
               {
                 name: "UI/UX Design",
