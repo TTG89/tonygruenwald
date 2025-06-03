@@ -9,7 +9,7 @@ export default function Home() {
       isUser: false,
     },
     {
-      text: "Try asking about Tony's tech stack, recent projects, or availability for new opportunities.",
+      text: "Try asking about Tony's tech stack, recent projects, or some of his favorite things.",
       isUser: false,
     },
   ]);
