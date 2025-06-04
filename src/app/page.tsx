@@ -99,6 +99,17 @@ export default function Home() {
   const [showSuggestions, setShowSuggestions] = useState(true);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  // Contact form state
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+
   // Get filtered projects
   const filteredProjects = getProjectsByCategory(selectedFilter);
 
@@ -175,6 +186,53 @@ export default function Home() {
     "Does Tony work with e-commerce platforms?",
     "What makes Tony's approach unique?",
   ];
+
+  // Contact form handlers
+  const handleContactInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const formData = new FormData();
+      formData.append(
+        "access_key",
+        process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || ""
+      );
+      formData.append("name", contactForm.name);
+      formData.append("email", contactForm.email);
+      formData.append("message", contactForm.message);
+      formData.append("subject", `Portfolio Contact from ${contactForm.name}`);
+      formData.append("from_name", "Tony Gruenwald Portfolio");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setContactForm({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="bg-white text-gray-900">
@@ -600,11 +658,7 @@ export default function Home() {
                 description:
                   "OpenAI API integration, chat interfaces, and intelligent automation",
               },
-              {
-                name: "Python",
-                description:
-                  "Backend development and data processing with Python",
-              },
+
               {
                 name: "Databases",
                 description: "MongoDB for PostgreSQL for data storage",
@@ -655,17 +709,55 @@ export default function Home() {
               <h3 className="text-xl font-bold mb-6 font-mono">
                 Send Me a Message
               </h3>
-              <form className="space-y-6">
+
+              {submitStatus === "success" && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded">
+                  <p className="text-sm">
+                    ✅ Thanks for your message! I&apos;ll get back to you soon.
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded">
+                  <p className="text-sm">
+                    ❌ Sorry, there was an error sending your message. Please
+                    try again.
+                  </p>
+                </div>
+              )}
+
+              <form onSubmit={handleContactSubmit} className="space-y-6">
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
+                />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value="New Contact Form Submission from Portfolio"
+                />
+                <input
+                  type="hidden"
+                  name="from_name"
+                  value="Tony Gruenwald Portfolio"
+                />
+
                 <div>
                   <label
                     htmlFor="name"
                     className="block text-gray-700 mb-2 text-sm"
                   >
-                    Name
+                    Name *
                   </label>
                   <input
                     type="text"
                     id="name"
+                    name="name"
+                    value={contactForm.name}
+                    onChange={handleContactInputChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
                   />
                 </div>
@@ -674,11 +766,15 @@ export default function Home() {
                     htmlFor="email"
                     className="block text-gray-700 mb-2 text-sm"
                   >
-                    Email
+                    Email *
                   </label>
                   <input
                     type="email"
                     id="email"
+                    name="email"
+                    value={contactForm.email}
+                    onChange={handleContactInputChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
                   />
                 </div>
@@ -687,19 +783,31 @@ export default function Home() {
                     htmlFor="message"
                     className="block text-gray-700 mb-2 text-sm"
                   >
-                    Message
+                    Message *
                   </label>
                   <textarea
                     id="message"
+                    name="message"
+                    value={contactForm.message}
+                    onChange={handleContactInputChange}
+                    required
                     rows={4}
                     className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Sending...
+                    </div>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
               </form>
             </div>
@@ -728,7 +836,9 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-medium text-sm font-mono">Email</h4>
-                      <p className="text-gray-600 text-sm">tony@example.com</p>
+                      <p className="text-gray-600 text-sm">
+                        tgruenwald15@gmail.com
+                      </p>
                     </div>
                   </div>
 
@@ -809,10 +919,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h2 className="text-xl font-bold font-mono">tony.dev</h2>
-              <p className="mt-2 text-sm">
-                Full-Stack Developer & Problem Solver
-              </p>
+              <h2 className="text-xl font-bold font-mono">tonygruenwald.dev</h2>
+              <p className="mt-2 text-sm">Software Engineer & Problem Solver</p>
             </div>
             <div className="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
               <a
