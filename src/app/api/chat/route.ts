@@ -96,9 +96,11 @@ Personal Approach:
 - Always learning new technologies and best practices (because JavaScript frameworks multiply faster than rabbits)
 - Favorite color is red (like the color of my face when I forget a semicolon)
 - Favorite team is the Green Bay Packers (Go Pack Go! 🧀) - Born in Milwaukee, lived in Madison until moving to St. Pete, Florida over 15 years ago (so yes, I'm that guy watching Packers games in 90-degree weather while everyone else is rooting for the Bucs)
+- Proudly owns shares of the Green Bay Packers (technically making him a part-owner of an NFL team, which is way cooler than it sounds)
+- Describes himself as an "Ok Fisher" (it's a humble joke - he's probably better than he lets on, but fishing stories are always suspect anyway)
 - Favorite movie is Jurassic Park but honestly, I love them all... even the questionable ones where they try to militarize velociraptors (because apparently regular dinosaurs weren't scary enough)
 - Debugging philosophy: "It's not a bug, it's an undocumented feature" (until product management finds out)
-- Weekend activity: Probably building something unnecessary but fun, like a smart toaster or teaching my houseplants to code
+- Weekend activity: Probably building something unnecessary but fun, like a smart toaster or teaching my houseplants to code (when not out fishing or watching the Packers)
 
 Contact: tgruenwald15@gmail.com
 

@@ -7,8 +7,8 @@ import { projects, getProjectsByCategory } from "../lib/projects";
 // Constant array for typing animation titles
 const TYPING_TITLES = [
   "Software Engineer",
-  "Full-Stack Developer",
-  "Frontend Developer",
+  "Green Bay Packer Shareholder",
+  "Ok Fisher",
 ];
 
 // Typing Animation Component
@@ -289,12 +289,12 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-700 font-light">
-                I build exceptional digital experiences that make an impact
+                I design and build software from backend to interface.
               </p>
               <p className="text-gray-600 mb-8 max-w-lg">
-                With expertise in both frontend and backend technologies, I
-                create scalable, user-friendly applications that solve
-                real-world problems.
+                Whether it’s building APIs, designing clean UI components, or
+                shipping full-stack applications, I focus on creating scalable,
+                intuitive digital experiences.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
@@ -698,32 +698,70 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-16">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="mb-16 text-center">
             <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-            <div className="w-16 h-1 bg-gray-900"></div>
+            <div className="w-16 h-1 bg-gray-900 mx-auto mb-6"></div>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Ready to start your next project? Let&apos;s discuss how we can
+              bring your ideas to life. I&apos;m always excited to work on
+              innovative projects and solve complex challenges.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-white p-8 border border-gray-200">
-              <h3 className="text-xl font-bold mb-6 font-mono">
-                Send Me a Message
-              </h3>
+          {/* Contact Form - Centered */}
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white p-8 border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-2 font-mono">
+                  Send Me a Message
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Fill out the form below and I&apos;ll get back to you within
+                  24 hours.
+                </p>
+              </div>
 
               {submitStatus === "success" && (
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded">
-                  <p className="text-sm">
-                    ✅ Thanks for your message! I&apos;ll get back to you soon.
-                  </p>
+                <div className="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-800 rounded-r animate-fade-in">
+                  <div className="flex items-center">
+                    <svg
+                      className="h-5 w-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <p className="text-sm font-medium">
+                      Message sent successfully! I&apos;ll get back to you soon.
+                    </p>
+                  </div>
                 </div>
               )}
 
               {submitStatus === "error" && (
-                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded">
-                  <p className="text-sm">
-                    ❌ Sorry, there was an error sending your message. Please
-                    try again.
-                  </p>
+                <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-800 rounded-r animate-fade-in">
+                  <div className="flex items-center">
+                    <svg
+                      className="h-5 w-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <p className="text-sm font-medium">
+                      Something went wrong. Please try again or email me
+                      directly.
+                    </p>
+                  </div>
                 </div>
               )}
 
@@ -744,46 +782,52 @@ export default function Home() {
                   value="Tony Gruenwald Portfolio"
                 />
 
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-gray-700 mb-2 text-sm"
-                  >
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={contactForm.name}
-                    onChange={handleContactInputChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="group">
+                    <label
+                      htmlFor="name"
+                      className="block text-gray-700 mb-2 text-sm font-medium group-focus-within:text-gray-900 transition-colors"
+                    >
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={contactForm.name}
+                      onChange={handleContactInputChange}
+                      required
+                      placeholder="Your full name"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition-all hover:border-gray-400"
+                    />
+                  </div>
+
+                  <div className="group">
+                    <label
+                      htmlFor="email"
+                      className="block text-gray-700 mb-2 text-sm font-medium group-focus-within:text-gray-900 transition-colors"
+                    >
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={contactForm.email}
+                      onChange={handleContactInputChange}
+                      required
+                      placeholder="your.email@example.com"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition-all hover:border-gray-400"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-gray-700 mb-2 text-sm"
-                  >
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={contactForm.email}
-                    onChange={handleContactInputChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
-                  />
-                </div>
-                <div>
+
+                <div className="group">
                   <label
                     htmlFor="message"
-                    className="block text-gray-700 mb-2 text-sm"
+                    className="block text-gray-700 mb-2 text-sm font-medium group-focus-within:text-gray-900 transition-colors"
                   >
-                    Message *
+                    Your Message *
                   </label>
                   <textarea
                     id="message"
@@ -791,124 +835,50 @@ export default function Home() {
                     value={contactForm.message}
                     onChange={handleContactInputChange}
                     required
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                    rows={5}
+                    placeholder="Tell me about your project, timeline, budget, or any questions you have..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition-all hover:border-gray-400 resize-none"
                   ></textarea>
+                  <p className="text-xs text-gray-500 mt-1">
+                    The more details you provide, the better I can help you.
+                  </p>
                 </div>
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  disabled={
+                    isSubmitting ||
+                    !contactForm.name ||
+                    !contactForm.email ||
+                    !contactForm.message
+                  }
+                  className="w-full px-8 py-4 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono disabled:bg-gray-400 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Sending...
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                      <span>Sending Message...</span>
                     </div>
                   ) : (
-                    "Send Message"
+                    <div className="flex items-center justify-center">
+                      <svg
+                        className="h-5 w-5 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                        />
+                      </svg>
+                      Send Message
+                    </div>
                   )}
                 </button>
               </form>
-            </div>
-
-            <div className="flex flex-col justify-between">
-              <div>
-                <h3 className="text-xl font-bold mb-6 font-mono">
-                  Contact Information
-                </h3>
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-gray-100 mr-4">
-                      <svg
-                        className="h-5 w-5 text-gray-900"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-sm font-mono">Email</h4>
-                      <p className="text-gray-600 text-sm">
-                        tgruenwald15@gmail.com
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-gray-100 mr-4">
-                      <svg
-                        className="h-5 w-5 text-gray-900"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-sm font-mono">
-                        Location
-                      </h4>
-                      <p className="text-gray-600 text-sm">San Francisco, CA</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-12 bg-gray-900 p-8 text-white">
-                <h4 className="text-xl font-bold mb-4 font-mono">
-                  Let&apos;s Work Together
-                </h4>
-                <p className="mb-6 text-sm">
-                  I&apos;m currently available for new opportunities and always
-                  excited to discuss innovative projects.
-                </p>
-                <div className="flex space-x-4">
-                  <a
-                    href="https://github.com/tonygruenwald"
-                    className="flex items-center justify-center w-8 h-8 bg-white text-gray-900 hover:bg-gray-200 transition-all"
-                  >
-                    <svg
-                      className="h-4 w-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/tonygruenwald/"
-                    className="flex items-center justify-center w-8 h-8 bg-white text-gray-900 hover:bg-gray-200 transition-all"
-                  >
-                    <svg
-                      className="h-4 w-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
