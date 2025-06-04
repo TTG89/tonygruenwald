@@ -85,7 +85,7 @@ function TypingAnimation() {
 export default function Home() {
   const [messages, setMessages] = useState([
     {
-      text: "👋 Hi there! I'm Tony's virtual assistant. Ask me anything about Tony's work, skills, or experience!",
+      text: "👋 I'm T.O.N.Y. — here to walk you through Tony Gruenwald's work and skills.",
       isUser: false,
     },
     {
@@ -292,9 +292,9 @@ export default function Home() {
                 I design and build software from backend to interface.
               </p>
               <p className="text-gray-600 mb-8 max-w-lg">
-                Whether it’s building APIs, designing clean UI components, or
-                shipping full-stack applications, I focus on creating scalable,
-                intuitive digital experiences.
+                Whether it&apos;s building APIs, designing clean UI components,
+                or shipping full-stack applications, I focus on creating
+                scalable, intuitive digital experiences.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
@@ -343,7 +343,7 @@ export default function Home() {
               <div className="bg-white border border-gray-200 p-6 shadow-lg">
                 <div className="mb-4 flex justify-between items-center">
                   <h2 className="text-lg font-medium text-gray-800 font-mono">
-                    Chat with Tony&apos;s AI Assistant
+                    Chat with T.O.N.Y.
                   </h2>
                   <div className="flex items-center space-x-2">
                     <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
