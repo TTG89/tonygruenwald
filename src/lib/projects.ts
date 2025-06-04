@@ -28,7 +28,7 @@ export const projects: Project[] = [
     shortDescription: 'A sophisticated e-commerce platform with Shopify Hydrogen and NetSuite integration for real-time pricing and decoration data.',
     client: 'Primeline Corporation',
     timeline: '4 months',
-    role: 'Lead Frontend Developer & System Integrator',
+    role: 'Sr. Software Engineer',
     technologies: ['Shopify Hydrogen', 'React', 'NetSuite', 'GraphQL', 'Tailwind CSS', 'Shopify Admin API', 'REST APIs', 'Oxygen Hosting'],
     challenge: 'Primeline.com required a sophisticated e-commerce platform that could handle complex product customization, real-time pricing from NetSuite, and extensive decoration options. The challenge was building a headless Hydrogen storefront that could seamlessly integrate with existing systems while providing a modern, fast user experience.',
     solution: 'Developed a comprehensive headless Hydrogen storefront with custom blocks system, advanced search enhancements, automated product mapping systems, and sales rep tools. Implemented real-time data synchronization with NetSuite through micro services architecture and created a robust Git-based deployment workflow with custom CI pipeline.',
