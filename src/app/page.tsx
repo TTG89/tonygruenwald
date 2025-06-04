@@ -7,7 +7,7 @@ import { projects } from "../lib/projects";
 // Constant array for typing animation titles
 const TYPING_TITLES = [
   "Software Engineer",
-  "Green Bay Packer Shareholder",
+  "Green Bay Packer Owner",
   "Ok Fisher",
 ];
 

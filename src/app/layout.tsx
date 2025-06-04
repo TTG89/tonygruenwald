@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     "React Developer",
     "Next.js",
     "Web Development",
-    "",
   ],
   openGraph: {
     title: "Tony Gruenwald - Full-Stack Developer & UI/UX Designer",
