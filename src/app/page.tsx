@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { projects, getProjectsByCategory } from "../lib/projects";
+import { projects } from "../lib/projects";
 
 // Constant array for typing animation titles
 const TYPING_TITLES = [
@@ -43,27 +43,10 @@ function TypingAnimation() {
     } else {
       // Deleting
       if (currentText.length > 0) {
-        // Special handling for "Full-Stack Developer" -> "Frontend Developer"
-        if (currentIndex === 1 && currentText === "Full-Stack Developer") {
-          // Delete only "Full-Stack " and keep "Developer"
-          if (currentText.length > "Frontend Developer".length) {
-            timeout = setTimeout(() => {
-              setCurrentText(currentText.slice(0, -1));
-            }, 50);
-          } else {
-            // Start typing "Frontend"
-            setIsDeleting(false);
-            setCurrentIndex(2);
-            timeout = setTimeout(() => {
-              setCurrentText("Frontend Developer");
-            }, 100);
-          }
-        } else {
-          // Normal deletion
-          timeout = setTimeout(() => {
-            setCurrentText(currentText.slice(0, -1));
-          }, 50);
-        }
+        // Normal deletion for all transitions
+        timeout = setTimeout(() => {
+          setCurrentText(currentText.slice(0, -1));
+        }, 50);
       } else {
         // Finished deleting, move to next title
         setIsDeleting(false);
@@ -91,7 +74,6 @@ export default function Home() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState("all");
   const [showSuggestions, setShowSuggestions] = useState(true);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -107,7 +89,7 @@ export default function Home() {
   >("idle");
 
   // Get filtered projects
-  const filteredProjects = getProjectsByCategory(selectedFilter);
+  const filteredProjects = projects;
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
@@ -603,11 +585,6 @@ export default function Home() {
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">
               Showing {filteredProjects.length} of {projects.length} projects
-              {selectedFilter !== "all" &&
-                ` in ${
-                  selectedFilter.charAt(0).toUpperCase() +
-                  selectedFilter.slice(1)
-                }`}
             </p>
             <Link
               href="/projects"
@@ -918,8 +895,8 @@ export default function Home() {
           <hr className="my-8 border-gray-800" />
           <div className="text-center text-gray-400 text-xs">
             <p>
-              &copy; 2024 Tony Gruenwald. Built with Next.js and deployed on
-              Vercel.
+              &copy; {new Date().getFullYear()} Tony Gruenwald. Built with
+              Next.js and deployed on Vercel.
             </p>
           </div>
         </div>
