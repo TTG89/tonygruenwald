@@ -170,6 +170,7 @@ export default function Home() {
   const suggestions = [
     "What technologies does Tony specialize in?",
     "Tell me about Tony's recent projects",
+    "How did you build this AI assistant?",
     "What's Tony's experience with React and Next.js?",
     "Does Tony work with e-commerce platforms?",
     "What makes Tony's approach unique?",
@@ -593,6 +594,11 @@ export default function Home() {
                 name: "Next.js",
                 description:
                   "Full-stack React framework with SSR and static generation",
+              },
+              {
+                name: "AI Integration",
+                description:
+                  "OpenAI API integration, chat interfaces, and intelligent automation",
               },
               {
                 name: "Python",
