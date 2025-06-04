@@ -85,11 +85,7 @@ function TypingAnimation() {
 export default function Home() {
   const [messages, setMessages] = useState([
     {
-      text: "👋 I'm T.O.N.Y. — here to walk you through Tony Gruenwald's work and skills.",
-      isUser: false,
-    },
-    {
-      text: "Try asking about Tony's tech stack, recent projects, or some of his favorite things.",
+      text: "Hey! I'm T.O.N.Y. — your guide to Tony Gruenwald's world of code and creativity.\nOfficially it stands for \"Tech-Oriented Narrative for You\", but between us devs...\nit's also \"Tony's Optimized Networked Yapper.\" 😄\nAsk me anything!",
       isUser: false,
     },
   ]);
@@ -474,7 +470,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Filter Tabs */}
+          {/* Filter Tabs 
           <div className="flex justify-center mb-12">
             <div className="flex space-x-1 bg-white border border-gray-200 p-1">
               {[
@@ -496,7 +492,7 @@ export default function Home() {
                 </button>
               ))}
             </div>
-          </div>
+          </div>*/}
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
