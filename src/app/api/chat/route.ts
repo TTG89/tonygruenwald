@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { projects, Project } from '../../../lib/projects';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -12,6 +13,20 @@ export async function POST(request: NextRequest) {
     if (!message) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
+
+    // Prepare projects data for the AI context
+    const projectsContext = projects.map((project: Project) => ({
+      title: project.title,
+      client: project.client,
+      timeline: project.timeline,
+      role: project.role,
+      technologies: project.technologies,
+      shortDescription: project.shortDescription,
+      challenge: project.challenge,
+      solution: project.solution,
+      category: project.category,
+      liveUrl: project.liveUrl
+    }));
 
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -31,6 +46,9 @@ About Tony:
 - Mobile Development: React Native, progressive web apps
 - Testing: Jest, Cypress, React Testing Library
 - Industries: Fintech, healthcare, e-commerce, SaaS applications
+
+Recent Projects & Portfolio:
+${JSON.stringify(projectsContext, null, 2)}
 
 Professional Experience:
 - Has built scalable web applications serving thousands of users
@@ -53,14 +71,14 @@ Personal Approach:
 
 Contact: tonygruenwald@gmail.com
 
-Keep responses concise, professional, funny at times and friendly. Focus on Tony's technical skills, experience, and availability for work. If asked about something not related to Tony's professional background, politely redirect the conversation back to his work and skills.`
+Keep responses concise, professional, funny at times and friendly. Focus on Tony's technical skills, experience, and availability for work. When discussing projects, you can reference specific details from his portfolio. If asked about something not related to Tony's professional background, politely redirect the conversation back to his work and skills.`
         },
         {
           role: "user",
           content: message
         }
       ],
-      max_tokens: 150,
+      max_tokens: 200,
       temperature: 0.7,
     });
 

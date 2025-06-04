@@ -96,6 +96,7 @@ export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Get filtered projects
@@ -119,6 +120,7 @@ export default function Home() {
       setMessages(newMessages);
       setInputValue("");
       setIsLoading(true);
+      setShowSuggestions(false); // Hide suggestions after first message
 
       try {
         const response = await fetch("/api/chat", {
@@ -150,11 +152,28 @@ export default function Home() {
     }
   };
 
+  const handleSuggestionClick = (suggestion: string) => {
+    setInputValue(suggestion);
+    setShowSuggestions(false);
+    // Auto-send the suggestion after a short delay
+    setTimeout(() => {
+      handleSendMessage();
+    }, 100);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSendMessage();
     }
   };
+
+  const suggestions = [
+    "What technologies does Tony specialize in?",
+    "Tell me about Tony's recent projects",
+    "What's Tony's experience with React and Next.js?",
+    "Does Tony work with e-commerce platforms?",
+    "What makes Tony's approach unique?",
+  ];
 
   return (
     <div className="bg-white text-gray-900">
@@ -235,7 +254,7 @@ export default function Home() {
 
               <div className="mt-12 flex items-center space-x-6">
                 <a
-                  href="#"
+                  href="https://github.com/tonygruenwald"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   <svg
@@ -247,7 +266,7 @@ export default function Home() {
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/tonygruenwald/"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   <svg
@@ -262,13 +281,19 @@ export default function Home() {
             </div>
 
             <div className="order-1 lg:order-2">
-              <div className="bg-white border border-gray-200 p-6">
+              <div className="bg-white border border-gray-200 p-6 shadow-lg">
                 <div className="mb-4 flex justify-between items-center">
                   <h2 className="text-lg font-medium text-gray-800 font-mono">
                     Chat with Tony&apos;s AI Assistant
                   </h2>
-                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                  <div className="flex items-center space-x-2">
+                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <span className="text-xs text-gray-500 font-mono">
+                      Online
+                    </span>
+                  </div>
                 </div>
+
                 <div
                   ref={chatContainerRef}
                   className="h-96 overflow-y-auto mb-4 p-4 bg-gray-50 border border-gray-200 space-y-4"
@@ -280,20 +305,64 @@ export default function Home() {
                   {messages.map((message, index) => (
                     <div
                       key={index}
-                      className={`${message.isUser ? "text-right" : ""}`}
+                      className={`${message.isUser ? "text-right" : ""} ${
+                        message.isUser
+                          ? "animate-slide-in-right"
+                          : "animate-slide-in-left"
+                      }`}
                     >
                       <div
-                        className={`inline-block max-w-[80%] p-3 ${
+                        className={`inline-block max-w-[80%] p-3 shadow-sm ${
                           message.isUser
-                            ? "bg-gray-200 text-gray-800"
-                            : "bg-gray-900 text-white"
+                            ? "bg-gray-200 text-gray-800 rounded-l-lg rounded-tr-lg"
+                            : "bg-gray-900 text-white rounded-r-lg rounded-tl-lg"
                         }`}
                       >
                         {message.text}
                       </div>
                     </div>
                   ))}
+
+                  {/* Loading indicator */}
+                  {isLoading && (
+                    <div className="animate-slide-in-left">
+                      <div className="inline-block bg-gray-900 text-white p-3 rounded-r-lg rounded-tl-lg">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-white rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-white rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
+
+                {/* Suggestions */}
+                {showSuggestions && (
+                  <div className="mb-4 animate-fade-in">
+                    <p className="text-xs text-gray-500 mb-2 font-mono">
+                      Ask me about:
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {suggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSuggestionClick(suggestion)}
+                          className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full hover:bg-gray-200 transition-all hover:scale-105 active:scale-95 font-mono"
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex">
                   <input
                     type="text"
@@ -304,12 +373,12 @@ export default function Home() {
                       isLoading ? "Thinking..." : "Ask me anything..."
                     }
                     disabled={isLoading}
-                    className="flex-1 p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="flex-1 p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all"
                   />
                   <button
                     onClick={handleSendMessage}
                     disabled={isLoading || !inputValue.trim()}
-                    className="bg-gray-900 text-white px-4 py-2 hover:bg-gray-800 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className="bg-gray-900 text-white px-4 py-2 hover:bg-gray-800 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
                   >
                     {isLoading ? (
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -441,13 +510,13 @@ export default function Home() {
                     {project.technologies.slice(0, 3).map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono"
+                        className="px-2 py-1 bg-white bg-opacity-20 text-black text-xs font-mono"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono">
+                      <span className="px-2 py-1 bg-white bg-opacity-20 text-black text-xs font-mono">
                         +{project.technologies.length - 3} more
                       </span>
                     )}
@@ -699,7 +768,7 @@ export default function Home() {
                 </p>
                 <div className="flex space-x-4">
                   <a
-                    href="#"
+                    href="https://github.com/tonygruenwald"
                     className="flex items-center justify-center w-8 h-8 bg-white text-gray-900 hover:bg-gray-200 transition-all"
                   >
                     <svg
@@ -711,7 +780,7 @@ export default function Home() {
                     </svg>
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/tonygruenwald/"
                     className="flex items-center justify-center w-8 h-8 bg-white text-gray-900 hover:bg-gray-200 transition-all"
                   >
                     <svg
