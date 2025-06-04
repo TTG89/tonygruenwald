@@ -120,9 +120,10 @@ export default function ProjectsPage() {
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
-              <div
+              <Link
                 key={project.id}
-                className="relative overflow-hidden h-80 bg-white border border-gray-200 group hover:shadow-lg transition-all duration-300"
+                href={`/projects/${project.id}`}
+                className="block relative overflow-hidden h-80 bg-white border border-gray-200 group hover:shadow-lg transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
                   {/* Dynamic icon based on project category */}
@@ -172,7 +173,7 @@ export default function ProjectsPage() {
                     </svg>
                   )}
                 </div>
-                <div className="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-end p-6 text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
                   <div className="mb-2">
                     <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono rounded">
                       {project.category.toUpperCase()}
@@ -200,17 +201,15 @@ export default function ProjectsPage() {
                     )}
                   </div>
                   <div className="flex space-x-3">
-                    <Link
-                      href={`/projects/${project.id}`}
-                      className="px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono"
-                    >
+                    <span className="px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono">
                       View Details
-                    </Link>
+                    </span>
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="px-4 py-2 border border-white text-white font-medium hover:bg-white hover:text-gray-900 transition-all text-xs font-mono"
                       >
                         Live Demo
@@ -218,7 +217,7 @@ export default function ProjectsPage() {
                     )}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
