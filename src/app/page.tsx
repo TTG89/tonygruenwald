@@ -737,7 +737,11 @@ export default function Home() {
                 </div>
               )}
 
-              <form onSubmit={handleContactSubmit} className="space-y-6">
+              <form
+                onSubmit={handleContactSubmit}
+                className="space-y-6"
+                data-recaptcha="true"
+              >
                 <input
                   type="hidden"
                   name="access_key"
