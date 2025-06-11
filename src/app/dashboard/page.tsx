@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { supabase, ChatLog } from "../../lib/supabase";
 
 export default function Dashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+  const [loginError, setLoginError] = useState("");
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState({
     totalChats: 0,
     todayChats: 0,
@@ -13,10 +16,45 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    fetchChatLogs();
+    // Check if already authenticated in sessionStorage
+    const authenticated = sessionStorage.getItem("dashboard_authenticated");
+    if (authenticated === "true") {
+      setIsAuthenticated(true);
+      fetchChatLogs();
+    }
   }, []);
 
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Check credentials against environment variables
+    const validUsername = process.env.NEXT_PUBLIC_DASHBOARD_USERNAME || "admin";
+    const validPassword =
+      process.env.NEXT_PUBLIC_DASHBOARD_PASSWORD || "password123";
+
+    if (
+      loginForm.username === validUsername &&
+      loginForm.password === validPassword
+    ) {
+      setIsAuthenticated(true);
+      setLoginError("");
+      sessionStorage.setItem("dashboard_authenticated", "true");
+      fetchChatLogs();
+    } else {
+      setLoginError("Invalid username or password");
+      setLoginForm({ username: "", password: "" });
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem("dashboard_authenticated");
+    setChatLogs([]);
+    setStats({ totalChats: 0, todayChats: 0, uniqueSessions: 0 });
+  };
+
   const fetchChatLogs = async () => {
+    setLoading(true);
     try {
       const { data, error } = await supabase
         .from("chat_logs")
@@ -50,6 +88,86 @@ export default function Dashboard() {
     }
   };
 
+  // Login Form Component
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="max-w-md w-full space-y-8 p-8">
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Dashboard Login
+              </h1>
+              <p className="text-gray-600">Access T.O.N.Y. Chat Analytics</p>
+            </div>
+
+            <form onSubmit={handleLogin} className="space-y-6">
+              {loginError && (
+                <div className="bg-red-50 border border-red-200 rounded p-3">
+                  <p className="text-red-800 text-sm">{loginError}</p>
+                </div>
+              )}
+
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  value={loginForm.username}
+                  onChange={(e) =>
+                    setLoginForm((prev) => ({
+                      ...prev,
+                      username: e.target.value,
+                    }))
+                  }
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+                  placeholder="Enter username"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={loginForm.password}
+                  onChange={(e) =>
+                    setLoginForm((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+                  placeholder="Enter password"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full px-4 py-2 bg-gray-900 text-white font-medium rounded hover:bg-gray-800 transition-colors"
+              >
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Rest of the existing dashboard code...
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString();
   };
@@ -74,13 +192,21 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            T.O.N.Y. Chat Dashboard
-          </h1>
-          <p className="text-gray-600">
-            Monitor conversations with your AI assistant
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              T.O.N.Y. Chat Dashboard
+            </h1>
+            <p className="text-gray-600">
+              Monitor conversations with your AI assistant
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+          >
+            Logout
+          </button>
         </div>
 
         {/* Stats Cards */}
@@ -132,7 +258,7 @@ export default function Dashboard() {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Today's Chats
+                  Today&apos;s Chats
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {stats.todayChats}
