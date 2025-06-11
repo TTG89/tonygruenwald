@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase, ChatLog } from "../../lib/supabase";
+import {
+  supabase,
+  ChatLog,
+  getStorageStats,
+  cleanupOldLogs,
+} from "../../lib/supabase";
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -9,6 +14,10 @@ export default function Dashboard() {
   const [loginError, setLoginError] = useState("");
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [loading, setLoading] = useState(false);
+  const [storageStats, setStorageStats] = useState({
+    totalRecords: 0,
+    estimatedSize: "0 KB",
+  });
   const [stats, setStats] = useState({
     totalChats: 0,
     todayChats: 0,
@@ -21,8 +30,22 @@ export default function Dashboard() {
     if (authenticated === "true") {
       setIsAuthenticated(true);
       fetchChatLogs();
+      fetchStorageStats();
     }
   }, []);
+
+  const fetchStorageStats = async () => {
+    const stats = await getStorageStats();
+    setStorageStats(stats);
+  };
+
+  const handleCleanup = async (daysToKeep: number) => {
+    if (confirm(`Delete all chat logs older than ${daysToKeep} days?`)) {
+      await cleanupOldLogs(daysToKeep);
+      fetchChatLogs();
+      fetchStorageStats();
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -210,7 +233,7 @@ export default function Dashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
@@ -293,6 +316,68 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Storage Stats Card */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-orange-100 rounded-lg">
+                <svg
+                  className="h-6 w-6 text-orange-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
+                  />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Storage Used
+                </p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {storageStats.estimatedSize}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {storageStats.totalRecords} records
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Cleanup Controls */}
+        <div className="bg-white rounded-lg shadow p-6 mb-8">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Storage Management
+          </h3>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => handleCleanup(7)}
+              className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition-colors text-sm"
+            >
+              Keep Last 7 Days
+            </button>
+            <button
+              onClick={() => handleCleanup(14)}
+              className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors text-sm"
+            >
+              Keep Last 14 Days
+            </button>
+            <button
+              onClick={() => handleCleanup(30)}
+              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors text-sm"
+            >
+              Keep Last 30 Days
+            </button>
+            <p className="text-sm text-gray-600 self-center ml-4">
+              Auto-cleanup: Logs older than 14 days are automatically deleted
+            </p>
           </div>
         </div>
 
