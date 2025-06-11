@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { projects, Project } from '../../../lib/projects';
+import { logChatInteraction } from '../../../lib/supabase';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,6 +14,16 @@ export async function POST(request: NextRequest) {
     if (!message) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
+
+    // Get user info for logging
+    const userIP = request.headers.get('x-forwarded-for') || 
+                   request.headers.get('x-real-ip') || 
+                   request.headers.get('cf-connecting-ip') || // Cloudflare
+                   'unknown';
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+    
+    // Generate a simple session ID (you might want to use a more sophisticated approach)
+    const sessionId = request.headers.get('x-session-id') || `session_${Date.now()}`;
 
     // Prepare projects data for the AI context
     const projectsContext = projects.map((project: Project) => ({
@@ -169,6 +180,17 @@ Contact: tgruenwald15@gmail.com`
     });
 
     const reply = completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response. Please try again.";
+
+    // Log the conversation to Supabase (don't block the response if logging fails)
+    logChatInteraction({
+      user_message: message,
+      ai_response: reply,
+      user_ip: userIP,
+      user_agent: userAgent,
+      session_id: sessionId
+    }).catch(error => {
+      console.error('Failed to log chat interaction:', error);
+    });
 
     return NextResponse.json({ reply });
   } catch (error) {
