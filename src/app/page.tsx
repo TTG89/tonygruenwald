@@ -564,15 +564,20 @@ export default function Home() {
                       View Details
                     </span>
                     {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(
+                            project.liveUrl,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
+                        }}
                         className="px-4 py-2 border border-white text-white font-medium hover:bg-white hover:text-gray-900 transition-all text-xs font-mono"
                       >
                         Live Demo
-                      </a>
+                      </button>
                     )}
                   </div>
                 </div>
