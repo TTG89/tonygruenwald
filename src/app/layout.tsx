@@ -62,7 +62,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               window.charterBotConfig = {
-                subdomain: 'lifeontherockscharters',
+                subdomain: 'tampabaydemocharters',
                 baseUrl: 'https://charter-bot.com'
               };
             `,
