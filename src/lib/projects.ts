@@ -24,14 +24,14 @@ export const projects: Project[] = [
   {
     id: 'charterbot-ai-assistant',
     title: 'CharterBot - AI-Powered Charter Booking Assistant',
-    description: 'A comprehensive AI-powered SaaS platform that provides embeddable chat widgets for charter boat companies. CharterBot combines OpenAI\'s advanced language models with real-time integrations to create an intelligent assistant that handles customer inquiries, checks availability, and facilitates bookings 24/7. The platform features multi-tenant architecture, FareHarbor integration, weather data, and streaming responses that deliver 50% faster perceived performance.',
-    shortDescription: 'An AI-powered SaaS platform for charter boat companies with OpenAI integration, real-time booking, and weather data.',
-    client: 'Charter Industry (SaaS Product)',
+    description: 'A comprehensive AI-powered SaaS platform that provides embeddable chat widgets for charter boat companies. CharterBot combines OpenAI\'s advanced language models with real-time integrations to create an intelligent assistant that handles customer inquiries, checks availability, and facilitates bookings 24/7. The platform features multi-tenant architecture, FareHarbor integration, weather data, and streaming responses that deliver 50% faster perceived performance. Currently live and actively used by Life On The Rocks Charters in Key West, FL.',
+    shortDescription: 'An AI-powered SaaS platform for charter boat companies with OpenAI integration, real-time booking, and weather data. Live at Life On The Rocks Charters.',
+    client: 'Charter Industry (SaaS Product) - Live at Life On The Rocks Charters',
     timeline: '8 months (ongoing)',
     role: 'Full-Stack Developer & AI Integration Lead',
     technologies: ['Next.js 13+', 'TypeScript', 'OpenAI GPT-4o-mini', 'Supabase', 'FareHarbor API', 'NOAA Weather API', 'Vercel', 'Tailwind CSS', 'Real-time Streaming'],
     challenge: 'Charter boat companies needed an intelligent 24/7 assistant that could handle complex customer inquiries, check real-time availability, provide weather updates, and facilitate bookings. The challenge was creating an AI system that understood the marine industry while integrating with existing booking platforms and delivering fast, contextual responses.',
-    solution: 'Built a sophisticated AI platform using OpenAI\'s language models with custom prompt engineering for the charter industry. Implemented real-time FareHarbor calendar integration, NOAA weather data, multi-tenant architecture with subdomain routing, and streaming responses that reduced perceived response time by 50%. Created an embeddable widget system that works across any website.',
+    solution: 'Built a sophisticated AI platform using OpenAI\'s language models with custom prompt engineering for the charter industry. Implemented real-time FareHarbor calendar integration, NOAA weather data, multi-tenant architecture with subdomain routing, and streaming responses that reduced perceived response time by 50%. Created an embeddable widget system that works across any website. Successfully deployed and actively running on Life On The Rocks Charters (lifeontherockscharters.com) in Key West, FL.',
     features: [
       {
         icon: 'ai',
@@ -69,9 +69,9 @@ export const projects: Project[] = [
         description: 'Comprehensive analytics tracking phone clicks, email interactions, booking attempts, and conversation flows to optimize conversion rates.'
       },
       {
-        icon: 'performance',
-        title: 'Performance Optimization',
-        description: 'Intelligent caching system, database connection pooling, and smart API detection achieving 94% cost reduction and 1.4-second response times.'
+        icon: 'live',
+        title: 'Live Production Deployment',
+        description: 'Successfully deployed and actively serving customers at Life On The Rocks Charters (lifeontherockscharters.com) in Key West, FL, handling real customer inquiries and bookings.'
       }
     ],
     category: 'web',

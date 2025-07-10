@@ -58,7 +58,7 @@ About Tony:
 - Available for full-time, consulting, and freelance work
 
 KEY AI PROJECT - CharterBot:
-Tony built CharterBot, an AI-powered SaaS platform for charter boat companies. **It's a real product in active development with early adopters using it live.** Features include OpenAI GPT-4o-mini integration, real-time FareHarbor booking, NOAA weather data, multi-tenant architecture, and streaming responses. Built with Next.js, TypeScript, Supabase, and Vercel.
+Tony built CharterBot, an AI-powered SaaS platform for charter boat companies. **It's a real product actively used by Life On The Rocks Charters (lifeontherockscharters.com) in Key West, FL, handling live customer inquiries and bookings.** Features include OpenAI GPT-4o-mini integration, real-time FareHarbor booking, NOAA weather data, multi-tenant architecture, and streaming responses. Built with Next.js, TypeScript, Supabase, and Vercel.
 
 Recent Projects & Portfolio:
 ${JSON.stringify(projectsContext, null, 2)}
