@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
+import CharterBot from "../components/CharterBot";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -55,29 +55,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* CharterBot Widget Configuration */}
-        <Script
-          id="charterbot-config"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.charterBotConfig = {
-                subdomain: 'tampabaydemocharters',
-                baseUrl: 'https://charter-bot.com'
-              };
-            `,
-          }}
-        />
-
         <Analytics />
         <SpeedInsights />
         {children}
-
-        {/* CharterBot Widget Script */}
-        <Script
-          src="https://charter-bot.com/embed.js"
-          strategy="afterInteractive"
-        />
+        <CharterBot />
       </body>
     </html>
   );
