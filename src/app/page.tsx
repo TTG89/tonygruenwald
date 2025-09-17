@@ -898,6 +898,12 @@ export default function Home() {
               >
                 Contact
               </a>
+              <Link
+                href="/privacy"
+                className="hover:text-gray-300 transition-colors text-sm"
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
           <hr className="my-8 border-gray-800" />
