@@ -551,6 +551,85 @@ export const projects: Project[] = [
     liveUrl: "https://www.oceanblueomega.com/",
   },
   {
+    id: "directbloom-wholesale-flower-marketplace",
+    title: "DirectBloom - Wholesale Flower Marketplace",
+    description:
+      "A B2B wholesale flower marketplace built on Shopify Hydrogen for Kennicott, one of the largest wholesale floral distributors in North America. DirectBloom is a custom headless storefront connecting florists and floral buyers directly with farm-fresh blooms from growers worldwide. Features include B2B catalog pricing via Shopify's Customer Account API, a real-time delivery date picker with business-day logic and blackout dates, server-side product filtering by date/price/category/farm/color, and a vendor directory powered by a custom AWS Lambda sync pipeline. Integrated with Storyblok CMS for content management, Route package protection, and Gravity — a custom vendor portal built on React + AWS ECS.",
+    shortDescription:
+      "A B2B wholesale flower marketplace on Shopify Hydrogen with B2B pricing, delivery date selection, vendor directory, and Storyblok CMS integration.",
+    client: "Kennicott (DirectBloom)",
+    timeline: "Ongoing",
+    role: "Sr. Software Engineer",
+    technologies: [
+      "Shopify Hydrogen",
+      "React Router",
+      "TypeScript",
+      "Shopify Customer Account API",
+      "Storyblok CMS",
+      "AWS Lambda",
+      "AWS ECS / Fargate",
+      "Tailwind CSS",
+      "GraphQL",
+      "Oxygen Hosting",
+    ],
+    challenge:
+      "Kennicott needed a modern B2B e-commerce experience to replace legacy ordering systems for wholesale florists. The platform required dynamic delivery scheduling with business-day logic, B2B catalog pricing scoped per company, multi-pass server-side product filtering, and a fully CMS-driven homepage — all while keeping performance high for a large product catalog of 250+ SKUs per collection.",
+    solution:
+      "Built a custom Shopify Hydrogen storefront with React Router and TypeScript. Implemented B2B pricing using Shopify's Customer Account API OAuth flow with per-company catalog prices via @inContext buyer directives. Created a delivery date picker with lead time, noon cutoff, and blackout date support. Built a 6-pass server-side product filter pipeline (date, price, category, farm, color). Integrated Storyblok CMS for all homepage content blocks and a vendor directory synced from Shopify metafields via AWS Lambda.",
+    features: [
+      {
+        icon: "shopify",
+        title: "B2B Catalog Pricing",
+        description:
+          "Shopify Customer Account API integration with OAuth login, per-company pricing via companyLocationId buyer context, and automatic catalog price resolution for authenticated florists.",
+      },
+      {
+        icon: "calendar",
+        title: "Delivery Date Picker",
+        description:
+          "Real-time delivery scheduling with business-day logic, noon cutoff, blackout date support, and sessionStorage persistence across page navigation.",
+      },
+      {
+        icon: "search",
+        title: "Multi-Pass Product Filtering",
+        description:
+          "6-pass server-side filter pipeline: expired/unavailable, delivery date, price range, category, farm/vendor, and color — all computed from live product metafields.",
+      },
+      {
+        icon: "database",
+        title: "Vendor Directory & Sync",
+        description:
+          "Automated vendor directory synced from Shopify metafields via AWS Lambda every 6 hours, merged with Storyblok vendor page stories for farm partner grid and navigation.",
+      },
+      {
+        icon: "blocks",
+        title: "Storyblok CMS Integration",
+        description:
+          "Fully CMS-driven homepage with vendor feature blocks, farm index grid, promo banners, and a date picker subtitle — all editable by content teams without code deploys.",
+      },
+      {
+        icon: "admin",
+        title: "Gravity Vendor Portal",
+        description:
+          "Companion vendor portal (Gravity) built with React + Express on AWS ECS Fargate with JWT authentication, DynamoDB, AWS SES email, and per-vendor store scoping.",
+      },
+      {
+        icon: "settings",
+        title: "Route Package Protection",
+        description:
+          "Full Route shipment protection integration with quote fetching, automatic cart line management, tier-based variant selection, and opt-out persistence.",
+      },
+      {
+        icon: "code",
+        title: "Freight & Import Charges",
+        description:
+          "Custom Checkout UI extension integration identifying Gravity's Freight/Tariff/Duty import charge cart lines and suppressing edit controls to prevent cart desync.",
+      },
+    ],
+    category: "web",
+    liveUrl: "https://directbloom.com",
+  },
+  {
     id: "carbon-marine-equipment",
     title: "Carbon Marine - Specialized Marine Equipment Store",
     description:
