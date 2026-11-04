@@ -631,43 +631,64 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[
               {
-                name: "React",
+                name: "Shopify Hydrogen",
                 description:
-                  "Building interactive UIs with modern React hooks and context",
+                  "Headless B2B storefronts with Customer Account API, B2B catalog pricing, Storyblok CMS, Oxygen hosting, and multi-pass server-side filtering",
               },
               {
-                name: "Node.js",
+                name: "TypeScript & React",
                 description:
-                  "Server-side JavaScript with Express and microservices",
+                  "Full-stack TypeScript across monorepos — React Router, Next.js, Remix, Express, shared packages, and strict type safety with zero any",
               },
               {
-                name: "TypeScript",
+                name: "AWS & Event-Driven Architecture",
                 description:
-                  "Type-safe applications with advanced TypeScript features",
+                  "EventBridge, SQS FIFO, Lambda, DynamoDB, ECS Fargate, CDK infrastructure-as-code, IAM isolation, and CloudWatch observability",
               },
               {
-                name: "Next.js",
+                name: "API Integrations",
                 description:
-                  "Full-stack React framework with SSR and static generation",
+                  "Deep integrations with NetSuite (SuiteQL, RESTlets, webhooks), Shopify Admin/Storefront/Partner APIs, Authorize.net, Storyblok, and third-party carriers",
+              },
+              {
+                name: "Carrier & Logistics Systems",
+                description:
+                  "Armellini air cargo integration: ASN submission, consignee resolution, days-of-service preparation, receiving labels, UnitID lifecycle, and shipment routing",
+              },
+              {
+                name: "Inventory & Order Systems",
+                description:
+                  "Real-time inventory control layers with hot/warm/cold polling cadence, atomic DynamoDB claims, idempotent event processing, and order-to-NetSuite sync",
+              },
+              {
+                name: "Security Engineering",
+                description:
+                  "Webhook trust boundaries, fail-closed idempotency guards, SES authorization scoping, secrets rotation without warm Lambda downtime, and security log remediation",
               },
               {
                 name: "AI Integration",
                 description:
-                  "OpenAI API integration, chat interfaces, and intelligent automation",
-              },
-
-              {
-                name: "Databases",
-                description: "MongoDB for PostgreSQL for data storage",
+                  "OpenAI GPT integration, streaming SSE responses, context-aware chat systems, and production AI SaaS (CharterBot — live at lifeontherockscharters.com)",
               },
               {
-                name: "UI/UX Design",
+                name: "Shopify Apps & Extensions",
                 description:
-                  "User-centered design with Figma and design systems",
+                  "Checkout UI extensions (freight/tariff/duty import charges), carrier service callbacks, webhooks, App Bridge, Liquid themes, and App Store compliance",
               },
               {
-                name: "DevOps",
-                description: "CI/CD pipelines, Docker, and cloud deployment",
+                name: "DynamoDB & Data Modeling",
+                description:
+                  "Single-table and multi-table design, GSIs, conditional writes, optimistic concurrency, TTL, PITR, and idempotency patterns at production scale",
+              },
+              {
+                name: "CI/CD & DevOps",
+                description:
+                  "GitHub Actions pipelines, Docker on ECS, Public ECR authentication, CDK deploy ordering, blue/green rollouts, and production incident runbooks",
+              },
+              {
+                name: "Next.js & Full-Stack",
+                description:
+                  "SSR and static generation, API routes, Supabase, Vercel deployments, and AI-powered portfolio and SaaS applications",
               },
             ].map((skill, index) => (
               <div
