@@ -193,13 +193,13 @@ export default function ProjectsPage() {
                     {project.technologies.slice(0, 3).map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono"
+                        className="px-2 py-1 text-white text-xs font-mono border border-white/30 bg-white/10"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono">
+                      <span className="px-2 py-1 text-white text-xs font-mono border border-white/30 bg-white/10">
                         +{project.technologies.length - 3} more
                       </span>
                     )}
