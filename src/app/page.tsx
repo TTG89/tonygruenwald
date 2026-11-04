@@ -88,6 +88,9 @@ export default function Home() {
     "idle" | "success" | "error"
   >("idle");
 
+  const INITIAL_COUNT = 6;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+
   // Get filtered projects
   const filteredProjects = projects;
 
@@ -478,17 +481,17 @@ export default function Home() {
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
+            {filteredProjects.slice(0, visibleCount).map((project) => (
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
                 className="block relative overflow-hidden h-80 bg-white border border-gray-200 group hover:shadow-lg transition-all duration-300"
               >
+                {/* Background icon */}
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-                  {/* Dynamic icon based on project category */}
                   {project.category === "web" && (
                     <svg
-                      className="h-16 w-16 text-white"
+                      className="h-16 w-16 text-white opacity-30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -503,7 +506,7 @@ export default function Home() {
                   )}
                   {project.category === "mobile" && (
                     <svg
-                      className="h-16 w-16 text-white"
+                      className="h-16 w-16 text-white opacity-30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -518,7 +521,7 @@ export default function Home() {
                   )}
                   {project.category === "ui" && (
                     <svg
-                      className="h-16 w-16 text-white"
+                      className="h-16 w-16 text-white opacity-30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -532,35 +535,47 @@ export default function Home() {
                     </svg>
                   )}
                 </div>
-                <div className="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-end p-6 text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+
+                {/* Always-visible title bar */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-900 bg-opacity-80 group-hover:opacity-0 transition-opacity duration-300">
+                  <span className="px-2 py-0.5 bg-white bg-opacity-20 text-white text-xs font-mono rounded mr-2">
+                    {project.category.toUpperCase()}
+                  </span>
+                  <h3 className="text-base font-bold mt-2 font-mono text-white leading-tight">
+                    {project.title}
+                  </h3>
+                </div>
+
+                {/* Hover overlay — full details */}
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-95 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <div className="mb-2">
-                    <span className="px-2 py-1 bg-white bg-opacity-20 text-black text-xs font-mono rounded">
+                    <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono rounded">
                       {project.category.toUpperCase()}
                     </span>
                   </div>
                   <h3 className="text-xl font-bold mb-2 font-mono">
                     {project.title}
                   </h3>
-                  <p className="mb-4 text-sm leading-relaxed">
+                  <p className="mb-4 text-sm leading-relaxed text-gray-200">
                     {project.shortDescription}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.slice(0, 3).map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-2 py-1 bg-white bg-opacity-20 text-black text-xs font-mono"
+                        className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 bg-white bg-opacity-20 text-black text-xs font-mono">
+                      <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono">
                         +{project.technologies.length - 3} more
                       </span>
                     )}
                   </div>
                   <div className="flex space-x-3">
-                    <span className="px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono">
+                    <span className="px-4 py-2 bg-white text-gray-900 font-medium text-xs font-mono">
                       View Details
                     </span>
                     {project.liveUrl && (
@@ -568,11 +583,7 @@ export default function Home() {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          window.open(
-                            project.liveUrl,
-                            "_blank",
-                            "noopener,noreferrer"
-                          );
+                          window.open(project.liveUrl, "_blank", "noopener,noreferrer");
                         }}
                         className="px-4 py-2 border border-white text-white font-medium hover:bg-white hover:text-gray-900 transition-all text-xs font-mono"
                       >
@@ -585,17 +596,26 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Show project count and "View All" button */}
-          <div className="text-center mt-12">
-            <p className="text-gray-600 mb-4">
-              Showing {filteredProjects.length} of {projects.length} projects
-            </p>
-            <Link
-              href="/projects"
-              className="px-8 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono"
-            >
-              View All Projects
-            </Link>
+          {/* Load More / View All */}
+          <div className="text-center mt-12 space-y-4">
+            {visibleCount < filteredProjects.length && (
+              <div>
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + 3)}
+                  className="px-8 py-3 border border-gray-900 text-gray-900 font-medium hover:bg-gray-900 hover:text-white transition-all text-sm font-mono"
+                >
+                  Load More ({filteredProjects.length - visibleCount} remaining)
+                </button>
+              </div>
+            )}
+            <div>
+              <Link
+                href="/projects"
+                className="px-8 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all text-sm font-mono"
+              >
+                View All Projects
+              </Link>
+            </div>
           </div>
         </div>
       </section>

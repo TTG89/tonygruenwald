@@ -125,11 +125,11 @@ export default function ProjectsPage() {
                 href={`/projects/${project.id}`}
                 className="block relative overflow-hidden h-80 bg-white border border-gray-200 group hover:shadow-lg transition-all duration-300"
               >
+                {/* Background icon */}
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-                  {/* Dynamic icon based on project category */}
                   {project.category === "web" && (
                     <svg
-                      className="h-16 w-16 text-white"
+                      className="h-16 w-16 text-white opacity-30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -144,7 +144,7 @@ export default function ProjectsPage() {
                   )}
                   {project.category === "mobile" && (
                     <svg
-                      className="h-16 w-16 text-white"
+                      className="h-16 w-16 text-white opacity-30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -159,7 +159,7 @@ export default function ProjectsPage() {
                   )}
                   {project.category === "ui" && (
                     <svg
-                      className="h-16 w-16 text-white"
+                      className="h-16 w-16 text-white opacity-30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -168,12 +168,24 @@ export default function ProjectsPage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={1.5}
-                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
                       />
                     </svg>
                   )}
                 </div>
-                <div className="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-end p-6 text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+
+                {/* Always-visible title bar */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-900 bg-opacity-80 group-hover:opacity-0 transition-opacity duration-300">
+                  <span className="px-2 py-0.5 bg-white bg-opacity-20 text-white text-xs font-mono rounded mr-2">
+                    {project.category.toUpperCase()}
+                  </span>
+                  <h3 className="text-base font-bold mt-2 font-mono text-white leading-tight">
+                    {project.title}
+                  </h3>
+                </div>
+
+                {/* Hover overlay — full details */}
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-95 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <div className="mb-2">
                     <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono rounded">
                       {project.category.toUpperCase()}
@@ -182,7 +194,7 @@ export default function ProjectsPage() {
                   <h3 className="text-xl font-bold mb-2 font-mono">
                     {project.title}
                   </h3>
-                  <p className="mb-4 text-sm leading-relaxed">
+                  <p className="mb-4 text-sm leading-relaxed text-gray-200">
                     {project.shortDescription}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -201,7 +213,7 @@ export default function ProjectsPage() {
                     )}
                   </div>
                   <div className="flex space-x-3">
-                    <span className="px-4 py-2 bg-white text-gray-900 font-medium hover:bg-gray-200 transition-all text-xs font-mono">
+                    <span className="px-4 py-2 bg-white text-gray-900 font-medium text-xs font-mono">
                       View Details
                     </span>
                     {project.liveUrl && (
