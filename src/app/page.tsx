@@ -538,21 +538,13 @@ export default function Home() {
 
                 {/* Always-visible title bar */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-900 bg-opacity-80 group-hover:opacity-0 transition-opacity duration-300">
-                  <span className="px-2 py-0.5 bg-white bg-opacity-20 text-white text-xs font-mono rounded mr-2">
-                    {project.category.toUpperCase()}
-                  </span>
-                  <h3 className="text-base font-bold mt-2 font-mono text-white leading-tight">
+                  <h3 className="text-base font-bold font-mono text-white leading-tight">
                     {project.title}
                   </h3>
                 </div>
 
                 {/* Hover overlay — full details */}
                 <div className="absolute inset-0 bg-gray-900 bg-opacity-95 flex flex-col justify-end p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="mb-2">
-                    <span className="px-2 py-1 bg-white bg-opacity-20 text-white text-xs font-mono rounded">
-                      {project.category.toUpperCase()}
-                    </span>
-                  </div>
                   <h3 className="text-xl font-bold mb-2 font-mono">
                     {project.title}
                   </h3>
