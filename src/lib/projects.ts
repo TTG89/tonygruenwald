@@ -411,68 +411,70 @@ export const projects: Project[] = [
     liveUrl: "https://www.faygo.com/",
   },
   {
-    id: "saltwater-getaway-yacht-charter",
-    title: "Saltwater Getaway - Luxury Yacht Charter Service",
+    id: "experience-key-west",
+    title: "Experience Key West - Travel & Charter Site",
     description:
-      "Premium yacht charter website built on Squarespace with seamless FareHarbor booking integration. Designed for luxury marine tourism in St. Petersburg, FL, featuring personalized charter experiences, professional crew profiles, and streamlined booking workflows. The platform showcases the exclusivity and personalization of luxury yacht charter services while providing an intuitive booking experience that converts visitors into customers.",
+      "A modern travel and tourism website for a Key West charter and experiences company, built with Next.js 15 (App Router), TypeScript, Tailwind CSS, and Sanity CMS. The site features a live weather widget in the header pulling real-time Key West conditions and a 3-day forecast from the Open-Meteo API — built entirely in Next.js with no third-party weather service fee. All content — tours, private charters, blog posts, and pages — is managed through Sanity Studio v3 with a custom desk structure, giving the client full self-service control. FareHarbor booking is embedded directly on experience pages for seamless in-page reservations. Deployed on Vercel with Sanity webhook-triggered ISR revalidation so content changes go live instantly without a code deploy.",
     shortDescription:
-      "A luxury yacht charter website with Squarespace and FareHarbor booking integration for premium marine tourism experiences.",
-    client: "Saltwater Getaway",
-    timeline: "1 months",
-    role: "Squarespace Developer & Tourism UX Designer",
+      "A Next.js 15 travel site for Key West charters with a live weather widget, Sanity CMS, FareHarbor booking integration, and Vercel ISR deployment.",
+    client: "Experience Key West",
+    timeline: "Ongoing",
+    role: "Full-Stack Developer",
     technologies: [
-      "Squarespace",
-      "FareHarbor Integration",
-      "Custom CSS/JavaScript",
-      "Responsive Design",
-      "SEO Optimization",
-      "Payment Processing",
-      "Booking System Integration",
+      "Next.js 15",
+      "TypeScript",
+      "Sanity CMS",
+      "Tailwind CSS",
+      "FareHarbor",
+      "Open-Meteo API",
+      "Vercel",
+      "Resend",
     ],
     challenge:
-      "Saltwater Getaway needed a premium website that could showcase their luxury yacht charter services while providing a seamless booking experience for customers. The challenge was creating a sophisticated platform that conveyed the exclusivity and personalization of their services while integrating a robust booking system.",
+      "Experience Key West needed a modern, content-managed tourism site that could showcase charters, tours, and experiences while giving non-technical staff the ability to add and update content without developer involvement. The site also needed real-time local weather to help visitors plan trips, and seamless in-page booking without redirecting away from the site.",
     solution:
-      "Developed a custom Squarespace site with FareHarbor integration, featuring elegant design, comprehensive service presentation, crew profiles, and streamlined booking workflows. Created visual storytelling elements and mobile-optimized experiences that showcase yacht experiences and Florida's beautiful coastline to inspire bookings.",
+      "Built a Next.js 15 App Router site with Sanity Studio v3 as the headless CMS — custom desk structure, schema-driven content types (tours, private charters, blog posts, pages), and a seed/snapshot workflow for safe content migrations. Implemented a custom weather widget fetching live Key West conditions from Open-Meteo's free API, rendering today plus a 2-day forecast in the site header. Embedded FareHarbor booking widgets directly on experience detail pages. Configured Vercel ISR with Sanity webhook revalidation so published content is live within seconds.",
     features: [
       {
-        icon: "squarespace",
-        title: "Squarespace Platform Mastery",
+        icon: "weather",
+        title: "Live Key West Weather Widget",
         description:
-          "Custom Squarespace development with advanced design customization, responsive layouts, and optimized performance for luxury service presentation.",
+          "Real-time weather header showing today's conditions plus a 2-day forecast — temperature highs/lows, weather icons, and rain probability — fetched from Open-Meteo's free API with no third-party fees.",
+      },
+      {
+        icon: "cms",
+        title: "Sanity CMS with Custom Studio",
+        description:
+          "Sanity Studio v3 with a custom desk structure gives the client full self-service control over tours, private charters, blog posts, and pages — no developer required for content updates.",
       },
       {
         icon: "booking",
         title: "FareHarbor Booking Integration",
         description:
-          "Seamless third-party booking system integration allowing customers to check availability, book charters, and manage reservations in real-time.",
+          "FareHarbor booking widgets embedded directly on experience detail pages so visitors can check availability and book without leaving the site.",
       },
       {
-        icon: "gallery",
-        title: "Visual Storytelling",
+        icon: "deploy",
+        title: "Vercel ISR + Sanity Webhooks",
         description:
-          "Rich photo gallery showcasing yacht experiences, crew personalities, and Florida's beautiful coastline to inspire bookings.",
+          "Incremental Static Regeneration triggered by Sanity publish webhooks — content changes go live in seconds without a full redeploy, keeping the site fast and always up to date.",
       },
       {
-        icon: "location",
-        title: "Location & Contact Integration",
+        icon: "code",
+        title: "Next.js 15 App Router",
         description:
-          "Integrated mapping, contact forms, and location details for Demens Landing Park with clear directions and contact information.",
+          "Full App Router architecture with TypeScript, server components, dynamic routes for tours and blog, sitemap generation, and robots.txt — built for performance and SEO.",
       },
       {
-        icon: "mobile",
-        title: "Mobile-Optimized Experience",
+        icon: "email",
+        title: "Contact Form with Resend",
         description:
-          "Responsive design ensuring seamless browsing and booking experiences across all devices, particularly important for on-the-go customers.",
-      },
-      {
-        icon: "service",
-        title: "Service Differentiation",
-        description:
-          "Clear presentation of different charter options with distinct pricing, duration, and experience details to guide customer decisions.",
+          "Server-side contact form handler using Resend for transactional email delivery, with SMTP fallback — no third-party form service required.",
       },
     ],
     category: "web",
-    liveUrl: "https://www.saltwatergetaway.com/",
+    liveUrl: "https://www.experiencekey-west.com",
+    codeUrl: "https://github.com/experiencekey-west/experiencekey-west",
   },
   {
     id: "oceanblue-omega-supplements",

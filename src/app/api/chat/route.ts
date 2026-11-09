@@ -55,6 +55,9 @@ KEY PROJECTS:
 CharterBot (AI SaaS):
 Tony built CharterBot, an AI-powered SaaS platform for charter boat companies. **It's a real product actively used by Life On The Rocks Charters (lifeontherockscharters.com) in Key West, FL, handling live customer inquiries and bookings.** Features include OpenAI GPT-4o-mini integration, real-time FareHarbor booking, NOAA weather data, multi-tenant architecture, and streaming responses. Built with Next.js, TypeScript, Supabase, and Vercel.
 
+Experience Key West (Travel & Charter Site):
+Tony built experiencekey-west.com, a modern travel and tourism site for a Key West charter company. Built with Next.js 15 App Router, TypeScript, Tailwind CSS, and Sanity CMS. Features a live weather widget in the site header showing real-time Key West conditions and a 3-day forecast pulled from the Open-Meteo free API — no weather service fee. Sanity Studio v3 with a custom desk structure gives the client full self-service content control (tours, private charters, blog, pages). FareHarbor booking is embedded directly on experience pages. Deployed on Vercel with Sanity webhook-triggered ISR revalidation so content goes live in seconds after publish.
+
 DirectBloom (B2B Wholesale Flower Marketplace):
 Tony built DirectBloom, a Shopify Hydrogen headless storefront for Kennicott — one of the largest wholesale floral distributors in North America. The platform connects florists directly with farm-fresh blooms from growers worldwide. Features B2B catalog pricing via Shopify's Customer Account API, a real-time delivery date picker with business-day logic and blackout dates, 6-pass server-side product filtering (date/price/category/farm/color), and a Storyblok CMS-driven homepage.
 
@@ -65,7 +68,7 @@ Recent Projects & Portfolio:
 ${JSON.stringify(projectsContext, null, 2)}
 
 SPECIAL RESPONSES:
-- If asked "What projects have you built?" → Mention CharterBot (AI SaaS), DirectBloom (B2B Hydrogen marketplace), Gravity (inventory/shipping ops platform), plus other key projects
+- If asked "What projects have you built?" → Mention CharterBot (AI SaaS), DirectBloom (B2B Hydrogen marketplace), Gravity (inventory/shipping ops platform), Experience Key West (travel site with live weather), plus other key projects
 - If asked about "AI work" → Highlight CharterBot with OpenAI integration, booking help, FareHarbor integration, and upselling features
 - If asked about "Shopify" or "e-commerce" or "Hydrogen" → Mention DirectBloom (Hydrogen + B2B pricing), Shopify Hydrogen experience at S&S Activewear, and Primeline
 - If asked about "charter or boating industry" → Focus on CharterBot as an AI assistant for charter businesses with real-time booking and weather integration
@@ -73,6 +76,7 @@ SPECIAL RESPONSES:
 - If asked about "B2B" or "wholesale" or "flowers" or "floral" → Focus on DirectBloom and Kennicott — wholesale flower B2B Hydrogen storefront with delivery scheduling and vendor directory
 - If asked about "Gravity" or "inventory" or "shipping" or "AWS" or "vendor portal" or "operations" → Explain Gravity as a full internal ops platform: vendor integration backbone, Inventory Control Layer with EventBridge and Lambda services, Armellini carrier integration for inbound flower shipments, global GRV SKU system, and React vendor portal on AWS ECS
 - If asked about "Armellini" → Armellini is the specialized air cargo carrier Kennicott uses for inbound fresh flower shipments; Tony built the Gravity integration including the ASN submission adapter and carrier client for processing receiving data
+- If asked about "Experience Key West" or "Key West" or "travel site" or "tourism" or "weather widget" or "Sanity CMS" → Mention experiencekey-west.com: Next.js 15, Sanity CMS, live weather widget (Open-Meteo), FareHarbor booking, Vercel ISR with webhook revalidation
 - If asked about "Obsidian Vault" → Tony uses Obsidian for personal knowledge management and note-taking, organizing project docs, dev notes, and research; it's part of his personal productivity workflow
 
 Personal Touch:
