@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { projects, Project } from "../../../lib/projects";
+import { initDB, logChat } from "../../../lib/turso";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -106,6 +107,9 @@ Remember: SHORT responses only! 2-3 sentences maximum.`,
     const reply =
       completion.choices[0]?.message?.content ||
       "I'm sorry, I couldn't generate a response. Please try again.";
+
+    // Log to Turso — fire and forget, never blocks the response
+    initDB().then(() => logChat(message, reply)).catch(() => {});
 
     return NextResponse.json({ reply });
   } catch (error) {
