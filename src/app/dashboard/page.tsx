@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface ChatLog {
   id: number;
@@ -9,18 +9,24 @@ interface ChatLog {
   created_at: string;
 }
 
+const SESSION_KEY = "dashboard_pw";
+
 export default function DashboardPage() {
   const [password, setPassword] = useState("");
+  const [savedPw, setSavedPw] = useState<string | null>(null);
   const [authed, setAuthed] = useState(false);
   const [logs, setLogs] = useState<ChatLog[]>([]);
   const [filtered, setFiltered] = useState<ChatLog[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
-  async function fetchLogs(pw: string) {
-    setLoading(true);
+  const fetchLogs = useCallback(async (pw: string, silent = false) => {
+    if (!silent) setLoading(true);
+    else setRefreshing(true);
     setError("");
     try {
       const res = await fetch("/api/dashboard", {
@@ -28,20 +34,39 @@ export default function DashboardPage() {
       });
       if (res.status === 401) {
         setError("Wrong password.");
-        setLoading(false);
+        sessionStorage.removeItem(SESSION_KEY);
+        setSavedPw(null);
+        setAuthed(false);
         return;
       }
       const data = await res.json();
       setLogs(data.logs);
-      setFiltered(data.logs);
       setAuthed(true);
+      setSavedPw(pw);
+      sessionStorage.setItem(SESSION_KEY, pw);
+      setLastRefresh(new Date());
     } catch {
       setError("Failed to load logs.");
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
-  }
+  }, []);
 
+  // Restore session on mount
+  useEffect(() => {
+    const stored = sessionStorage.getItem(SESSION_KEY);
+    if (stored) fetchLogs(stored);
+  }, [fetchLogs]);
+
+  // Auto-refresh every 30 seconds when authed
+  useEffect(() => {
+    if (!authed || !savedPw) return;
+    const interval = setInterval(() => fetchLogs(savedPw, true), 30000);
+    return () => clearInterval(interval);
+  }, [authed, savedPw, fetchLogs]);
+
+  // Filter logs on search change
   useEffect(() => {
     if (!search.trim()) {
       setFiltered(logs);
@@ -56,6 +81,14 @@ export default function DashboardPage() {
       );
     }
   }, [search, logs]);
+
+  function signOut() {
+    sessionStorage.removeItem(SESSION_KEY);
+    setAuthed(false);
+    setSavedPw(null);
+    setLogs([]);
+    setPassword("");
+  }
 
   if (!authed) {
     return (
@@ -88,7 +121,7 @@ export default function DashboardPage() {
   }
 
   const today = logs.filter(
-    (l) => new Date(l.created_at).toDateString() === new Date().toDateString()
+    (l) => new Date(l.created_at + "Z").toDateString() === new Date().toDateString()
   ).length;
 
   return (
@@ -99,14 +132,28 @@ export default function DashboardPage() {
           <h1 className="text-lg font-bold font-mono">T.O.N.Y. Dashboard</h1>
           <p className="text-gray-500 text-xs font-mono mt-0.5">
             Chat log viewer
+            {lastRefresh && (
+              <span className="ml-3 text-gray-600">
+                Last refreshed {lastRefresh.toLocaleTimeString()}
+              </span>
+            )}
           </p>
         </div>
-        <button
-          onClick={() => setAuthed(false)}
-          className="text-xs text-gray-500 hover:text-gray-300 font-mono transition-colors"
-        >
-          Sign out
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => savedPw && fetchLogs(savedPw, true)}
+            disabled={refreshing}
+            className="text-xs text-gray-400 hover:text-white font-mono transition-colors disabled:opacity-40"
+          >
+            {refreshing ? "Refreshing..." : "↻ Refresh"}
+          </button>
+          <button
+            onClick={signOut}
+            className="text-xs text-gray-500 hover:text-gray-300 font-mono transition-colors"
+          >
+            Sign out
+          </button>
+        </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-8">
@@ -163,7 +210,7 @@ export default function DashboardPage() {
                     {log.message}
                   </p>
                   <span className="text-gray-600 text-xs font-mono whitespace-nowrap pt-0.5">
-                    {new Date(log.created_at).toLocaleDateString("en-US", {
+                    {new Date(log.created_at + "Z").toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
                       hour: "2-digit",
