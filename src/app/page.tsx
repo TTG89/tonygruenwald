@@ -294,7 +294,7 @@ export default function Home() {
 
               <div className="mt-12 flex items-center space-x-6">
                 <a
-                  href="https://github.com/tonygruenwald"
+                  href="https://github.com/TTG89"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   <svg

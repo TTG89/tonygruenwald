@@ -481,7 +481,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <a
-                  href="https://github.com/tonygruenwald"
+                  href="https://github.com/TTG89"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   <svg
